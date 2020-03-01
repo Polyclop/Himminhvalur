@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class lightHits : MonoBehaviour
+public class lightHitsRaycast : MonoBehaviour
 {
     public RaycastHit hit;
     Vector3 direction; // vector between light and player;
