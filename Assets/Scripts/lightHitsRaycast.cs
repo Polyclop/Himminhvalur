@@ -22,7 +22,6 @@ public class lightHitsRaycast : MonoBehaviour
         if(Physics.Linecast(transform.position, playerTransform.position, out hit))
         //if(Physics.Raycast(transform.position, direction, out hit))
         {
-            Debug.Log(hit);
             jauge.seen = hit.transform.GetComponent<CapsuleCollider>() != null;
         }    
     }

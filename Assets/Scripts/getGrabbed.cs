@@ -9,21 +9,21 @@ public class getGrabbed : MonoBehaviour
     Collider col;
     
     //triggerLights
-    bool shallTriggerLights;
+    /*bool shallTriggerLights;
     public Light lit;
     float maxIntensity;
     public float intensityIncrease = 0.001f;
-    public lightHitsRaycast lightHits;
+    public lightHitsRaycast lightHits;*/
 
-    Collider[] colliders;
-    Collider boxCollider;
+    //Collider[] colliders;
+    //Collider boxCollider;
 
     // Start is called before the first frame update
     void Start()
     {
-        maxIntensity = lit.intensity;
-        lit.intensity = 0;
-        colliders = GetComponents<BoxCollider>();
+        //maxIntensity = lit.intensity;
+        //lit.intensity = 0;
+        /*colliders = GetComponents<BoxCollider>();
         foreach (Collider coll in colliders)
         {
             if (!coll.isTrigger)
@@ -31,6 +31,7 @@ public class getGrabbed : MonoBehaviour
                 boxCollider = coll;
             }
         }
+        */
     }
 
     // Update is called once per frame
@@ -40,12 +41,18 @@ public class getGrabbed : MonoBehaviour
         {
             if (Input.GetButtonDown("Fire1"))
             {
+                
                 isGrabbed = !isGrabbed;
+                if (!isGrabbed)
+                    Ungrab();
+
+                GameEvents.current.GrabObject(transform.position);
                 if (isGrabbed)
                 {
                     Grab();
                 }
-                else Ungrab();
+
+
             }
         }
 
@@ -53,11 +60,12 @@ public class getGrabbed : MonoBehaviour
 
 
 
-
+        /*
         if (shallTriggerLights && lit.intensity < maxIntensity)
         {
             lit.intensity += intensityIncrease;
         }
+        */
     }
 
 
@@ -67,7 +75,7 @@ public class getGrabbed : MonoBehaviour
         {
             isInside = true;
             col = other;
-            Physics.IgnoreCollision(other, boxCollider, true);
+            //Physics.IgnoreCollision(other, boxCollider, true);
         }
     }
 
@@ -76,7 +84,7 @@ public class getGrabbed : MonoBehaviour
             if (other is CapsuleCollider)
             {
                 isInside = false;
-                Physics.IgnoreCollision(other, boxCollider, false);
+                //Physics.IgnoreCollision(other, boxCollider, false);
             }
     }
 
@@ -85,8 +93,8 @@ public class getGrabbed : MonoBehaviour
     void Grab()
     {
         this.transform.parent = col.transform;
-        shallTriggerLights = true;
-        lightHits.enabled = true;
+        //shallTriggerLights = true;
+        //lightHits.enabled = true;
     }
 
     void Ungrab()
