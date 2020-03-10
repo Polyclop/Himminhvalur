@@ -7,7 +7,8 @@ public class lightHitsRaycast : MonoBehaviour
     public RaycastHit hit;
     Vector3 direction; // vector between light and player;
     public Transform playerTransform;
-    public caughtJauge jauge;
+
+    bool seen = false;
     
     // Start is called before the first frame update
     void Start()
@@ -22,7 +23,8 @@ public class lightHitsRaycast : MonoBehaviour
         if(Physics.Linecast(transform.position, playerTransform.position, out hit))
         //if(Physics.Raycast(transform.position, direction, out hit))
         {
-            jauge.seen = hit.transform.GetComponent<CapsuleCollider>() != null;
+            seen = hit.transform.GetComponent<CapsuleCollider>() != null;
+            GameEvents.current.BeSeen(seen);
         }    
     }
 }

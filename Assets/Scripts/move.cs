@@ -5,8 +5,20 @@ using UnityEngine;
 public class move : MonoBehaviour
 {
     Transform tsf;
-    public float speed = 1;
-    public float jumpHeight = 20;
+
+    float speed;
+    [Range(0, 10)]
+    public float walkSpeed = 0.02f;
+    [Range(0, 10)]
+    public float grabSpeed = 0.01f;
+
+    [Range(1, 20)]
+    public float jumpVelocity;
+    [Range(0, 10)]
+    public float fallMultiplier = 2.5f;
+    [Range(0, 10)]
+    public float lowJumpMultiplier = 2f;
+    
     public bool canJump = true;
 
     Rigidbody rb;
@@ -26,26 +38,44 @@ public class move : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         GameEvents.current.onGrabObject += OnPlayerGrab;
         animator = GetComponent<Animator>();
+        speed = walkSpeed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        tsf.position = new Vector3(tsf.position.x + ((Input.GetAxis("Horizontal") * speed)), tsf.position.y, tsf.position.z);
+        //tsf.Translate(Vector3.right * Input.GetAxis("Horizontal") * speed * Time.deltaTime);
+        tsf.position = new Vector3(tsf.localPosition.x + (Input.GetAxis("Horizontal") * speed * Time.deltaTime), tsf.localPosition.y, tsf.localPosition.z);
         
         animator.SetBool("isWalking", Input.GetAxis("Horizontal") != 0);
 
-        if(Input.GetButtonDown("Jump") && canJump)
-        {
-            canJump = false;
-            rb.AddForce(new Vector3(0, jumpHeight, 0), ForceMode.Impulse);
-        }
+        HandleJump();
+
+
 
         if (!isGrabbing)
         {
             FlipCheck();
         }
 
+    }
+
+    void HandleJump()
+    {
+        if(rb.velocity.y < 0)
+        {
+            rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        }
+        else if(rb.velocity.y > 0 && !Input.GetButton("Jump"))
+        {
+            rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+        }
+
+        if (Input.GetButtonDown("Jump") && canJump)
+        {
+            canJump = false;
+            rb.velocity = Vector3.up * jumpVelocity;
+        }
     }
 
     void FlipCheck()
@@ -72,7 +102,7 @@ public class move : MonoBehaviour
             
             
             //transform.localScale = scale;
-            transform.Rotate(0, 0, 180, Space.Self);
+            transform.Rotate(0, 180, 0, Space.Self);
         }
 
     }
@@ -88,10 +118,11 @@ public class move : MonoBehaviour
         isGrabbing = !isGrabbing;
         if ((Input.GetAxis("Horizontal") < 0 && transform.position.x < objectPosition.x) || (Input.GetAxis("Horizontal") > 0 && transform.position.x > objectPosition.x))
         {
-            transform.Rotate(0, 0, 180, Space.Self);
+            transform.Rotate(0, 180, 0, Space.Self);
 
         }
         canJump = !canJump;
         animator.SetBool("isPushing", isGrabbing);
+        speed = isGrabbing ? grabSpeed : walkSpeed; 
     }
 }

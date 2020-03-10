@@ -14,15 +14,17 @@ public class caughtJauge : MonoBehaviour
     void Start()
     {
         slider = GetComponent<Slider>();
+        GameEvents.current.onBeingSeen += OnGettingCaughtSlider;
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         if (seen)
         {
             if (slider.value < 1)
-                slider.value += 0.01f * increaseRate;
+                slider.value += 0.01f * increaseRate * Time.deltaTime;
             else
                 HandleDeath();
         }
@@ -30,9 +32,14 @@ public class caughtJauge : MonoBehaviour
         {
             if(slider.value > 0)
             {
-                slider.value -= 0.01f * decreaseRate;
+                slider.value -= 0.01f * decreaseRate * Time.deltaTime;
             }
         }
+    }
+
+    void OnGettingCaughtSlider(bool caught)
+    {
+        seen = caught;
     }
 
     void HandleDeath()
