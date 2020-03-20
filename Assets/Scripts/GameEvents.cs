@@ -16,6 +16,8 @@ public class GameEvents : MonoBehaviour
 
     public event Action<bool> onBeingSeen;
 
+    public event Action<bool> onMovingInOutOfSafeSpace;
+
     public void GrabObject(Vector3 objectPosition)
     {
         if(onGrabObject != null)
@@ -29,6 +31,15 @@ public class GameEvents : MonoBehaviour
         if (onBeingSeen != null)
         {
             onBeingSeen(seen);
+        }
+    }
+
+
+    public void MoveInOutOfSafeSpace(bool safe)
+    {
+        if (onMovingInOutOfSafeSpace != null)
+        {
+            onMovingInOutOfSafeSpace(safe);
         }
     }
 }

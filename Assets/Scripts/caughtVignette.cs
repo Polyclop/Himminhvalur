@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
+
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.HighDefinition;
 
 public class caughtVignette : MonoBehaviour
 {
-    
-    PostProcessProfile profile;
+    VolumeProfile profile;
     Vignette vignette;
 
     public bool seen;
@@ -22,8 +23,11 @@ public class caughtVignette : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        profile = GetComponent<PostProcessVolume>().profile;
-        vignette = profile.GetSetting<Vignette>();
+        profile = GetComponent<Volume>().profile;
+        Vignette gnette;
+        if (profile.TryGet<Vignette>(out gnette)){
+            vignette = gnette;
+        }
         baseValue = vignette.intensity.value;
         GameEvents.current.onBeingSeen += OnGettingCaughtVignette;
     }
