@@ -2989,7 +2989,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &323205820
 Transform:
   m_ObjectHideFlags: 0
@@ -2998,8 +2998,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 323205819}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.1, z: 0.56}
-  m_LocalScale: {x: 0.15, y: 0.01, z: 0.1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.56}
+  m_LocalScale: {x: 0.12, y: 0.01, z: 0.07}
   m_Children: []
   m_Father: {fileID: 1172488806}
   m_RootOrder: 0
@@ -6709,7 +6709,7 @@ PrefabInstance:
     - target: {fileID: 1572530552559776175, guid: 981010e22a19c064aaca8c84a5d7078a,
         type: 3}
       propertyPath: m_Name
-      value: salle3-4_v005
+      value: salle4
       objectReference: {fileID: 0}
     - target: {fileID: 1572530552559776175, guid: 981010e22a19c064aaca8c84a5d7078a,
         type: 3}
