@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: texture_algue2
-  m_Shader: {fileID: -6465566751694194690, guid: 0d570ef7206815545ad458250548f9f3,
+  m_Shader: {fileID: -6465566751694194690, guid: 43209e9db0c673248a7c355ecf9e48c3,
     type: 3}
   m_ShaderKeywords: _ALPHATEST_ON
   m_LightmapFlags: 2
@@ -50,6 +50,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - Texture2D_F713777:
         m_Texture: {fileID: 2800000, guid: 8ac53a2095738f047a0601dc2cf73011, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_FC75EF29:
+        m_Texture: {fileID: 2800000, guid: d414a890e32ae3f419fdcae83e7107b7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AnisotropyMap:
@@ -337,8 +341,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - BOOLEAN_71EB28BD: 0
     - Vector1_3F44791A: 0.3
     - Vector1_A604658: 0.06
+    - Vector1_B1B3F520: 0.1
     - _AORemapMax: 1
     - _AORemapMax0: 1
     - _AORemapMax1: 1
@@ -632,7 +638,10 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 1
     m_Colors:
+    - Color_EE7709E: {r: 1, g: 1, b: 1, a: 0}
     - Vector2_29F392E7: {r: 6, g: 0, b: 0, a: 0}
+    - Vector2_51FD61F0: {r: 0.3, g: 0.3, b: 0, a: 0}
+    - Vector2_DE4AACF: {r: 5, g: 5, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColor0: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColor1: {r: 1, g: 1, b: 1, a: 1}
