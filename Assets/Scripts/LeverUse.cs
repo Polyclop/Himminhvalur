@@ -20,6 +20,7 @@ public class LeverUse : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // si je suis dans la zone et que j'appuie sur "fire", j'active l'animation du levier
         if (isInside)
         {
             if (Input.GetButtonDown("Fire1"))
@@ -28,6 +29,7 @@ public class LeverUse : MonoBehaviour
             }
         }
 
+        // si l'animation du levier est finie, je lance la deuxieme animation
         if(anor.GetCurrentAnimatorStateInfo(0).length >
             anor.GetCurrentAnimatorStateInfo(0).normalizedTime && anor.GetCurrentAnimatorStateInfo(0).IsName("leverActivate"))
         {
@@ -39,6 +41,7 @@ public class LeverUse : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // si c'est bien le personnage je suis dans la zone
         if (other is CapsuleCollider)
         {
             isInside = true;
@@ -48,6 +51,7 @@ public class LeverUse : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        // si c'est bien le personnage je suis sorti de la zone
         if (other is CapsuleCollider)
         {
             isInside = false;
