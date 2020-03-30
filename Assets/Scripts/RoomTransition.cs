@@ -6,27 +6,70 @@ using Cinemachine;
 public class RoomTransition : MonoBehaviour
 {
 
-    public GameObject[] cameras;
+    public CinemachineVirtualCamera[] cameras;
+    Vector3[] camerasPosition;
+    bool comesFromLeft;
+    bool shallPrepareToChangeCamera;
     // Start is called before the first frame update
     void Start()
     {
-
+        Vector3[] camerasPosition = new Vector3[cameras.Length];
     }
 
+    private void FixedUpdate()
+    {
+        
+    }
     // Update is called once per frame
     void Update()
     {
-        
+        if (shallPrepareToChangeCamera)
+        {
+            /*
+            for (int i = 0; i < cameras.Length; i++)
+            {
+                camerasPosition[i] = cameras[i].transform.position - cameras[i].body;
+            }
+
+            // When cameras are at the same place we switch them
+            if (camerasPosition[0].x == camerasPosition[1].x && camerasPosition[0].y == camerasPosition[1].y)
+            {
+            */
+                ChangeCamera();
+                shallPrepareToChangeCamera = false;
+            //}
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other is CapsuleCollider)
+        {
+            // Check where the player comes from
+            comesFromLeft = (other.transform.position.x < transform.position.x);
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if(other is CapsuleCollider)
+        // Check if the player exits from the oposite direction
+        if(other is CapsuleCollider && ((other.transform.position.x < transform.position.x) != comesFromLeft))
         {
-            for(int i = 0; i< cameras.Length; i++)
+            shallPrepareToChangeCamera = true;
+        }
+    }
+
+    void ChangeCamera()
+    {
+        // active Camera's priority is 11,
+        // others are 10
+        for (int i = 0; i < cameras.Length; i++)
+        {
+            if (cameras[i].Priority == 10)
             {
-                cameras[i].SetActive(!cameras[i].activeSelf);
+                cameras[i].Priority = 11;
             }
+            else cameras[i].Priority = 10;
         }
     }
 }
