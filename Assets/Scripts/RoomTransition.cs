@@ -46,14 +46,14 @@ public class RoomTransition : MonoBehaviour
         if(other is CapsuleCollider)
         {
             // Check where the player comes from
-            comesFromLeft = (other.transform.position.x < transform.position.x);
+            //comesFromLeft = (other.transform.position.x < transform.position.x);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
         // Check if the player exits from the oposite direction
-        if(other is CapsuleCollider && ((other.transform.position.x < transform.position.x) != comesFromLeft))
+        if(other is CapsuleCollider /*&& ((other.transform.position.x < transform.position.x) != comesFromLeft)*/)
         {
             shallPrepareToChangeCamera = true;
         }
