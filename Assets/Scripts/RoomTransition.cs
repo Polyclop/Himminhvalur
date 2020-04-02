@@ -11,6 +11,7 @@ public class RoomTransition : MonoBehaviour
     public bool isVertical;
     bool comesFromLeft;
     bool shallPrepareToChangeCamera;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +47,7 @@ public class RoomTransition : MonoBehaviour
             if (isVertical)
             {
                 comesFromLeft = (other.transform.position.x < transform.position.x);
+                
             }
         }
     }
@@ -55,10 +57,11 @@ public class RoomTransition : MonoBehaviour
         // Check if the player exits from the oposite direction
         if(other is CapsuleCollider)
         {
-            if (isVertical && ((other.transform.position.x < transform.position.x) != comesFromLeft))
+            if (isVertical)
             {
                 if((other.transform.position.x < transform.position.x) != comesFromLeft)
                 {
+
                     shallPrepareToChangeCamera = true;
                 }
                 

@@ -34,6 +34,7 @@ public class TutoGameEvent : MonoBehaviour
 
             // j'avais dit avant que je voulais transmettre une variable alors je la transmet
             GameEvents.current.BeSeen(isInside);
+  
         }
 
 
