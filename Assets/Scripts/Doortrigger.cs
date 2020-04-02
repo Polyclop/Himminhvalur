@@ -6,11 +6,21 @@ public class Doortrigger : MonoBehaviour
 {
     [SerializeField] GameObject door;
     public bool isInZone = false;
-    Animator zz_button;
-    public Animator porte_point_pivot;
-     void Start()
-     {
-        zz_button = GetComponent<Animator>();
+    Animator button;
+    public Animator porte;
+    public Animator fenetre;
+
+    // etat de l'animation
+    enum animationState
+    {
+        started = 0,
+        inPause = 1,
+        ended = 2
+    };
+
+    void Start()
+    {
+        button = GetComponent<Animator>();
         
     }
     void OnTriggerEnter(Collider col)
@@ -22,21 +32,25 @@ public class Doortrigger : MonoBehaviour
     {
         isInZone = false;
     }
-     void Update()
+
+    void Update()
     {
         if (Input.GetButtonDown("Fire1") && isInZone)
-
         {
-            zz_button.SetBool("isPushed", true);
-            porte_point_pivot.SetBool("isRotating", true);
+            button.SetBool("isPushed", true);
 
         }
 
-        if (zz_button.GetCurrentAnimatorStateInfo(0).normalizedTime >
-           zz_button.GetCurrentAnimatorStateInfo(0).length && zz_button.GetCurrentAnimatorStateInfo(0).IsName("zz_ Bouton"))
+    }
+
+    // L'animation envoie un message quand elle est terminée
+    public void AlertObserver(int message)
+    {
+        if(message == (int)animationState.ended)
         {
-            
-            zz_button.SetBool("isPushed", false);
+            porte.SetBool("isRotating", true);
+            fenetre.SetBool("open", true);
+            button.SetBool("isPushed", false);
         }
     }
 }
