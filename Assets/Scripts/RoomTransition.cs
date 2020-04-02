@@ -8,6 +8,7 @@ public class RoomTransition : MonoBehaviour
 
     public CinemachineVirtualCamera[] cameras;
     Vector3[] camerasPosition;
+    public bool isVertical;
     bool comesFromLeft;
     bool shallPrepareToChangeCamera;
     // Start is called before the first frame update
@@ -16,10 +17,6 @@ public class RoomTransition : MonoBehaviour
         Vector3[] camerasPosition = new Vector3[cameras.Length];
     }
 
-    private void FixedUpdate()
-    {
-        
-    }
     // Update is called once per frame
     void Update()
     {
@@ -46,16 +43,30 @@ public class RoomTransition : MonoBehaviour
         if(other is CapsuleCollider)
         {
             // Check where the player comes from
-            //comesFromLeft = (other.transform.position.x < transform.position.x);
+            if (isVertical)
+            {
+                comesFromLeft = (other.transform.position.x < transform.position.x);
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
         // Check if the player exits from the oposite direction
-        if(other is CapsuleCollider /*&& ((other.transform.position.x < transform.position.x) != comesFromLeft)*/)
+        if(other is CapsuleCollider)
         {
-            shallPrepareToChangeCamera = true;
+            if (isVertical && ((other.transform.position.x < transform.position.x) != comesFromLeft))
+            {
+                if((other.transform.position.x < transform.position.x) != comesFromLeft)
+                {
+                    shallPrepareToChangeCamera = true;
+                }
+                
+            }
+            else
+            {
+                shallPrepareToChangeCamera = true;
+            }
         }
     }
 

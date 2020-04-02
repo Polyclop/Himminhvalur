@@ -12,12 +12,15 @@ public class GameEvents : MonoBehaviour
         current = this;
     }
 
+    // Le nom de mon event 
+    // et le type de paramètre que je vais transmettre quand je le déclencherai
     public event Action<Vector3> onGrabObject;
 
     public event Action<bool> onBeingSeen;
 
     public event Action<bool> onMovingInOutOfSafeSpace;
 
+    // La Fonction liée a cet event qui va s'activer lors de l'activation
     public void GrabObject(Vector3 objectPosition)
     {
         if(onGrabObject != null)
