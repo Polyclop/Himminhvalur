@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Doortrigger : MonoBehaviour
 {
-    [SerializeField] GameObject door;
     public bool isInZone = false;
     Animator button;
     public Animator porte;
@@ -37,7 +36,7 @@ public class Doortrigger : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1") && isInZone)
         {
-            button.SetBool("isPushed", true);
+            button.SetBool("activate", true);
 
         }
 
