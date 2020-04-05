@@ -48,8 +48,8 @@ public class Doortrigger : MonoBehaviour
         if(message == (int)animationState.ended)
         {
             porte.SetBool("isRotating", true);
-            fenetre.SetBool("open", true);
-            button.SetBool("isPushed", false);
+            //fenetre.SetBool("open", true);
+            //button.SetBool("isPushed", false);
         }
     }
 }

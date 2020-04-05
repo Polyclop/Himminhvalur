@@ -31,6 +31,8 @@ public class move : MonoBehaviour
 
     Animator animator;
 
+    public Transform childCenter;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -87,7 +89,6 @@ public class move : MonoBehaviour
         if (flipSprite)
         {
             scale.x *= -1;
-            
             if (rotator == 180)
             {
                 rotator = 0;
@@ -103,6 +104,8 @@ public class move : MonoBehaviour
             
             //transform.localScale = scale;
             transform.Rotate(0, 180, 0, Space.Self);
+            childCenter.localPosition = new Vector3(childCenter.localPosition.x * -1, childCenter.localPosition.y, childCenter.localPosition.z);
+
         }
 
     }
