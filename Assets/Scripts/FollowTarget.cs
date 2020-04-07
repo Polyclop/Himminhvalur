@@ -7,9 +7,13 @@ public class FollowTarget : MonoBehaviour
     public bool isInside;
     public Transform playerTransform;
     [Range(0, 5)]
-    public float allowedDistance = 0;
+    public float allowedDistanceClose = 0;
+    [Range(0, 10)]
+    public float allowedDistanceFar = 4;
     [Range(0, 5)]
-    public float maxFollowSpeed = 1;
+    public float closeFollowSpeed = 0.9f;
+    [Range(0, 5)]
+    public float farFollowSpeed = 1;
     float currentFollowSpeed = 0;
     Rigidbody rb;
     RaycastHit hit;
@@ -27,9 +31,14 @@ public class FollowTarget : MonoBehaviour
         transform.LookAt(playerTransform);
         if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit))
         {
-            if(hit.distance >= allowedDistance)
+            if(hit.distance >= allowedDistanceClose && hit.distance <= allowedDistanceFar)
             {
-                currentFollowSpeed = maxFollowSpeed;
+                currentFollowSpeed = closeFollowSpeed;
+                transform.position = Vector3.MoveTowards(transform.position, playerTransform.position, currentFollowSpeed * Time.deltaTime);
+            }
+            else if (hit.distance >= allowedDistanceFar)
+            {
+                currentFollowSpeed = farFollowSpeed;
                 transform.position = Vector3.MoveTowards(transform.position, playerTransform.position, currentFollowSpeed * Time.deltaTime);
             }
             else

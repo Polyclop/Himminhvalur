@@ -103,7 +103,7 @@ public class move : MonoBehaviour
             
             
             //transform.localScale = scale;
-            transform.Rotate(0, 180, 0, Space.Self);
+            tsf.Rotate(0, 180, 0, Space.World);
             childCenter.localPosition = new Vector3(childCenter.localPosition.x * -1, childCenter.localPosition.y, childCenter.localPosition.z);
 
         }
