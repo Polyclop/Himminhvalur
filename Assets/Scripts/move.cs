@@ -46,6 +46,7 @@ public class move : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        speed = walkSpeed;
         //tsf.Translate(Vector3.right * Input.GetAxis("Horizontal") * speed * Time.deltaTime);
         tsf.position = new Vector3(tsf.localPosition.x + (Input.GetAxis("Horizontal") * speed * Time.deltaTime), tsf.localPosition.y, tsf.localPosition.z);
         
@@ -77,6 +78,8 @@ public class move : MonoBehaviour
         {
             canJump = false;
             rb.velocity = Vector3.up * jumpVelocity;
+            animator.SetBool("isJumping", true);
+            animator.SetBool("isWalking", false);
         }
     }
 
@@ -113,7 +116,14 @@ public class move : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (!isGrabbing)
+        {
             canJump = true;
+
+            animator.SetBool("isJumping", false);
+
+        }
+            
+
     }
 
     private void OnPlayerGrab(Vector3 objectPosition)
