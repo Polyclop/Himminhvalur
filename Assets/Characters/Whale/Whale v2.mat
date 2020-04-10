@@ -13,7 +13,7 @@ Material:
     _HEIGHTMAP _MASKMAP _METALLICGLOSSMAP _NORMALMAP _NORMALMAP_TANGENT_SPACE _PARALLAXMAP
     _VERTEX_DISPLACEMENT _VERTEX_DISPLACEMENT_LOCK_OBJECT_SCALE
   m_LightmapFlags: 2
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2000
   stringTagMap: {}
@@ -95,7 +95,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskMap:
-        m_Texture: {fileID: 2800000, guid: e3b1e841b85a53b40af5f88d09c8fe36, type: 3}
+        m_Texture: {fileID: 2800000, guid: fdafc20bec66f824f86816cb8b9be84c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:

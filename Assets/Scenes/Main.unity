@@ -2287,7 +2287,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 7f7d3e2bf49e1b6488136bf0db6674a3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 7f7d3e2bf49e1b6488136bf0db6674a3,
         type: 3}
@@ -2297,7 +2297,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 7f7d3e2bf49e1b6488136bf0db6674a3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.211
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 7f7d3e2bf49e1b6488136bf0db6674a3,
         type: 3}
@@ -2849,7 +2849,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -4144,7 +4144,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -4167,7 +4167,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1190847444}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -210.822, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -210.822, y: 170.6505, z: 0}
 --- !u!1 &499246058
 GameObject:
   m_ObjectHideFlags: 0
@@ -5045,7 +5045,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -8894,7 +8894,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -9803,7 +9803,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -11247,7 +11247,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1568297529}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
@@ -11493,7 +11493,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -13717,7 +13717,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
