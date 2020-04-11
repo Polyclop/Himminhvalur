@@ -5,13 +5,20 @@ using UnityEngine;
 public class move : MonoBehaviour
 {
     Transform tsf;
+    Rigidbody rb;
+    Animator animator;
+    public Transform childCenter;
 
-    float speed;
+    // Movement
+    public bool canMove = true;
     [Range(0, 10)]
     public float walkSpeed = 0.02f;
     [Range(0, 10)]
     public float grabSpeed = 0.01f;
+    float speed;
 
+    // Jump
+    public bool canJump = true;
     [Range(1, 20)]
     public float jumpVelocity;
     [Range(0, 10)]
@@ -19,48 +26,49 @@ public class move : MonoBehaviour
     [Range(0, 10)]
     public float lowJumpMultiplier = 2f;
     
-    public bool canJump = true;
-
-    Rigidbody rb;
-
+    // Changing Side
     bool flipSprite;
     int rotator = 0;
     public float rotationZ;
 
+    // Others
     public bool isGrabbing;
 
-    Animator animator;
 
-    public Transform childCenter;
 
-    // Start is called before the first frame update
+        /// Init
     void Start()
     {
         tsf = GetComponent<Transform>();
         rb = GetComponent<Rigidbody>();
-        GameEvents.current.onGrabObject += OnPlayerGrab;
         animator = GetComponent<Animator>();
         speed = walkSpeed;
+        GameEvents.current.onGrabObject += OnPlayerGrab;
+        GameEvents.current.onBlockingPlayerMove += AllowPlayerMovement;
     }
 
-    // Update is called once per frame
+        /// Game Loop
     void Update()
     {
-        speed = walkSpeed;
-        //tsf.Translate(Vector3.right * Input.GetAxis("Horizontal") * speed * Time.deltaTime);
-        tsf.position = new Vector3(tsf.localPosition.x + (Input.GetAxis("Horizontal") * speed * Time.deltaTime), tsf.localPosition.y, tsf.localPosition.z);
-        
-        animator.SetBool("isWalking", Input.GetAxis("Horizontal") != 0);
-
+        HandleMove();
         HandleJump();
-
-
-
         if (!isGrabbing)
         {
             FlipCheck();
         }
+    }
 
+
+
+        ///  MOVEMENT
+
+    void HandleMove()
+    {
+        if (canMove)
+        {
+            tsf.position = new Vector3(tsf.localPosition.x + (Input.GetAxis("Horizontal") * speed * Time.deltaTime), tsf.localPosition.y, tsf.localPosition.z);
+        }
+        animator.SetBool("isWalking", Input.GetAxis("Horizontal") != 0 && canMove);
     }
 
     void HandleJump()
@@ -113,6 +121,9 @@ public class move : MonoBehaviour
 
     }
 
+
+        /// GAME EVENTS
+
     private void OnCollisionEnter(Collision collision)
     {
         if (!isGrabbing)
@@ -137,5 +148,10 @@ public class move : MonoBehaviour
         canJump = !canJump;
         animator.SetBool("isPushing", isGrabbing);
         speed = isGrabbing ? grabSpeed : walkSpeed; 
+    }
+
+    private void AllowPlayerMovement(bool isAllowed)
+    {
+        canMove = isAllowed;
     }
 }

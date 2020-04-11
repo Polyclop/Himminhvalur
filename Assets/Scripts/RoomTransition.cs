@@ -7,37 +7,21 @@ public class RoomTransition : MonoBehaviour
 {
 
     public CinemachineVirtualCamera[] cameras;
-    Vector3[] camerasPosition;
     public bool isVertical;
     bool comesFromLeft;
-    bool shallPrepareToChangeCamera;
-    
+
+    // Room Number
+    public float leftRoomNumber;
+    public float rightRoomNumber;
+
+    public float currentRoom;
+
     // Start is called before the first frame update
     void Start()
     {
-        Vector3[] camerasPosition = new Vector3[cameras.Length];
+        currentRoom = leftRoomNumber;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (shallPrepareToChangeCamera)
-        {
-            /*
-            for (int i = 0; i < cameras.Length; i++)
-            {
-                camerasPosition[i] = cameras[i].transform.position - cameras[i].body;
-            }
-
-            // When cameras are at the same place we switch them
-            if (camerasPosition[0].x == camerasPosition[1].x && camerasPosition[0].y == camerasPosition[1].y)
-            {
-            */
-                ChangeCamera();
-                shallPrepareToChangeCamera = false;
-            //}
-        }
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -47,7 +31,7 @@ public class RoomTransition : MonoBehaviour
             if (isVertical)
             {
                 comesFromLeft = (other.transform.position.x < transform.position.x);
-                
+                currentRoom = comesFromLeft ? leftRoomNumber : rightRoomNumber;
             }
         }
     }
@@ -61,14 +45,12 @@ public class RoomTransition : MonoBehaviour
             {
                 if((other.transform.position.x < transform.position.x) != comesFromLeft)
                 {
-
-                    shallPrepareToChangeCamera = true;
+                    ChangeCamera();
                 }
-                
             }
             else
             {
-                shallPrepareToChangeCamera = true;
+                ChangeCamera();
             }
         }
     }
@@ -85,5 +67,9 @@ public class RoomTransition : MonoBehaviour
             }
             else cameras[i].Priority = 10;
         }
+
+        // Room Change Event
+        currentRoom = currentRoom == leftRoomNumber ? rightRoomNumber : leftRoomNumber;
+        GameEvents.current.ChangeRoom(currentRoom);
     }
 }

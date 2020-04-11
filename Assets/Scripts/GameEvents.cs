@@ -20,6 +20,10 @@ public class GameEvents : MonoBehaviour
 
     public event Action<bool> onMovingInOutOfSafeSpace;
 
+    public event Action<float> onChangingRoom;
+
+    public event Action<bool> onBlockingPlayerMove;
+
     // La Fonction liée a cet event qui va s'activer lors de l'activation
     public void GrabObject(Vector3 objectPosition)
     {
@@ -43,6 +47,23 @@ public class GameEvents : MonoBehaviour
         if (onMovingInOutOfSafeSpace != null)
         {
             onMovingInOutOfSafeSpace(safe);
+        }
+    }
+
+
+    public void ChangeRoom(float room)
+    {
+        if (onChangingRoom != null)
+        {
+            onChangingRoom(room);
+        }
+    }
+
+    public void BlockPlayerMove(bool canMove)
+    {
+        if (onBlockingPlayerMove != null)
+        {
+            onBlockingPlayerMove(canMove);
         }
     }
 }

@@ -37,7 +37,7 @@ public class Doortrigger : MonoBehaviour
         if (Input.GetButtonDown("Fire1") && isInZone)
         {
             button.SetBool("activate", true);
-
+            GameEvents.current.BlockPlayerMove(false);
         }
 
     }
@@ -48,8 +48,8 @@ public class Doortrigger : MonoBehaviour
         if(message == (int)animationState.ended)
         {
             porte.SetBool("isRotating", true);
-            //fenetre.SetBool("open", true);
-            //button.SetBool("isPushed", false);
+            GameEvents.current.BlockPlayerMove(true);
+
         }
     }
 }
