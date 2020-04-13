@@ -14,11 +14,11 @@ public class FollowTarget : MonoBehaviour
     public float allowedDistanceFar = 4;
     [Range(0, 5)]
     public float closeFollowSpeedWhenWalking = 0.9f;
-    float closeFollowSpeedWhenRunning = 1.8f;
+    float closeFollowSpeedWhenRunning = 1.2f;
     float closeFollowSpeed= 0.9f;
     [Range(0, 5)]
     public float farFollowSpeedWhenWalking = 1.4f;
-    float farFollowSpeedWhenRunning = 2.8f;
+    float farFollowSpeedWhenRunning = 2.4f;
     float farFollowSpeed = 1.4f;
 
     float currentFollowSpeed = 0;

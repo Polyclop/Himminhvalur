@@ -12,7 +12,9 @@ public class move : MonoBehaviour
     // Movement
     public bool canMove = true;
     [Range(0, 10)]
-    public float walkSpeed = 0.02f;
+    public float walkSpeed = 1f;
+    [Range(0, 10)]
+    public float runSpeed = 1.6f;
     [Range(0, 10)]
     public float grabSpeed = 0.01f;
     float speed;
@@ -33,6 +35,7 @@ public class move : MonoBehaviour
 
     // Others
     public bool isGrabbing;
+    bool isRunning = false;
 
 
 
@@ -42,15 +45,16 @@ public class move : MonoBehaviour
         tsf = GetComponent<Transform>();
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
-        speed = walkSpeed;
+        speed = isRunning ? runSpeed : walkSpeed;
         GameEvents.current.onGrabObject += OnPlayerGrab;
         GameEvents.current.onBlockingPlayerMove += AllowPlayerMovement;
+        GameEvents.current.onChangingRoom += ChangePlayerWalkType;
+
     }
 
         /// Game Loop
     void Update()
     {
-        speed = walkSpeed;
 
 
         HandleMove();
@@ -71,7 +75,9 @@ public class move : MonoBehaviour
         {
             tsf.position = new Vector3(tsf.localPosition.x + (Input.GetAxis("Horizontal") * speed * Time.deltaTime), tsf.localPosition.y, tsf.localPosition.z);
         }
-        animator.SetBool("isWalking", Input.GetAxis("Horizontal") != 0 && canMove);
+        animator.SetBool("isWalking", Input.GetAxis("Horizontal") != 0 && canMove && !isRunning);
+        animator.SetBool("isRunning", Input.GetAxis("Horizontal") != 0 && canMove && isRunning);
+
     }
 
     void HandleJump()
@@ -143,18 +149,25 @@ public class move : MonoBehaviour
     private void OnPlayerGrab(Vector3 objectPosition)
     {
         isGrabbing = !isGrabbing;
-        if ((Input.GetAxis("Horizontal") < 0 && transform.position.x < objectPosition.x) || (Input.GetAxis("Horizontal") > 0 && transform.position.x > objectPosition.x))
+        /*if ((Input.GetAxis("Horizontal") < 0 && transform.position.x < objectPosition.x) || (Input.GetAxis("Horizontal") > 0 && transform.position.x > objectPosition.x))
         {
             transform.Rotate(0, 180, 0, Space.Self);
 
-        }
+        }*/
         canJump = !canJump;
         animator.SetBool("isPushing", isGrabbing);
-        speed = isGrabbing ? grabSpeed : walkSpeed; 
+        speed = isGrabbing ? grabSpeed : runSpeed; 
     }
 
     private void AllowPlayerMovement(bool isAllowed)
     {
         canMove = isAllowed;
+    }
+
+    private void ChangePlayerWalkType(float room)
+    {
+        // if player is in rooms 2 or 4 he's running
+        isRunning = (room == 2 || room == 4);
+        speed = isRunning ? runSpeed : walkSpeed;
     }
 }
