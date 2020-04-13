@@ -50,6 +50,9 @@ public class move : MonoBehaviour
         /// Game Loop
     void Update()
     {
+        speed = walkSpeed;
+
+
         HandleMove();
         HandleJump();
         if (!isGrabbing)

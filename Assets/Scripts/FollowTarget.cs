@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FollowTarget : MonoBehaviour
 {
+
+
     public bool isInside;
     public Transform playerTransform;
     [Range(0, 5)]
@@ -11,17 +13,27 @@ public class FollowTarget : MonoBehaviour
     [Range(0, 10)]
     public float allowedDistanceFar = 4;
     [Range(0, 5)]
-    public float closeFollowSpeed = 0.9f;
+    public float closeFollowSpeedWhenWalking = 0.9f;
+    float closeFollowSpeedWhenRunning = 1.8f;
+    float closeFollowSpeed= 0.9f;
     [Range(0, 5)]
-    public float farFollowSpeed = 1;
+    public float farFollowSpeedWhenWalking = 1.4f;
+    float farFollowSpeedWhenRunning = 2.8f;
+    float farFollowSpeed = 1.4f;
+
     float currentFollowSpeed = 0;
     Rigidbody rb;
     RaycastHit hit;
+    SphereCollider fishCollider;
+
+    int currentRoom;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        fishCollider = GetComponent<SphereCollider>();
         //allowedDistance = playerTransform.gameObject.GetComponent<CapsuleCollider>().radius/2;
+        GameEvents.current.onChangingRoom += onChangingFishesMovement;
     }
 
     // Update is called once per frame
@@ -64,6 +76,22 @@ public class FollowTarget : MonoBehaviour
         if (other is CapsuleCollider)
         {
             GameEvents.current.BeSeen(isInside);
+        }
+    }
+
+    private void onChangingFishesMovement(float room)
+    {
+        if(room >= 2)
+        {
+            fishCollider.enabled = false;
+            closeFollowSpeed = closeFollowSpeedWhenRunning;
+            farFollowSpeed = farFollowSpeedWhenRunning;
+        }
+        else
+        {
+            fishCollider.enabled = false;
+            closeFollowSpeed = closeFollowSpeedWhenWalking;
+            farFollowSpeed = farFollowSpeedWhenWalking;
         }
     }
 

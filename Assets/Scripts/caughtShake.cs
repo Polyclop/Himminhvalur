@@ -10,9 +10,9 @@ public class caughtShake : MonoBehaviour
     float baseValue = 0;
     public float maxValue = 1;
     [Range(0, 1f)]
-    public float growthValue = 0.1f;
+    public float growthValue = 0.4f;
     [Range(0, 1f)]
-    public float decreaseValue = 0.1f;
+    public float decreaseValue = 0.8f;
 
     CinemachineBasicMultiChannelPerlin screenShake;
 
