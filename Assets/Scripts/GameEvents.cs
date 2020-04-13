@@ -24,6 +24,8 @@ public class GameEvents : MonoBehaviour
 
     public event Action<bool> onBlockingPlayerMove;
 
+    public event Action<float> onDying;
+ 
     // La Fonction liée a cet event qui va s'activer lors de l'activation
     public void GrabObject(Vector3 objectPosition)
     {
@@ -64,6 +66,14 @@ public class GameEvents : MonoBehaviour
         if (onBlockingPlayerMove != null)
         {
             onBlockingPlayerMove(canMove);
+        }
+    }
+
+    public void Die(float room)
+    {
+        if (onDying != null)
+        {
+            onDying(room);
         }
     }
 }

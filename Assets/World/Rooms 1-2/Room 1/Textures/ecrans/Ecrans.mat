@@ -132,8 +132,8 @@ Material:
     - Boolean_C7A28791: 0
     - Boolean_E4E172C: 0
     - Vector1_191AC75F: 1
-    - Vector1_D3ADB262: 0.1
-    - Vector1_DF3A8003: 0
+    - Vector1_D3ADB262: 0.5
+    - Vector1_DF3A8003: 1
     - _AORemapMax: 1
     - _AORemapMin: 0
     - _ATDistance: 1

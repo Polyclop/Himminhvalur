@@ -18,10 +18,14 @@ public class GameOverCheck : MonoBehaviour
 
     public float whatIsMyTime;
 
+    float currentRoom;
+    
+
     // Start is called before the first frame update
     void Start()
     {
         GameEvents.current.onBeingSeen += OnGettingCaughtGameOver;
+        GameEvents.current.onChangingRoom += GetRoomForSpawnpoint;
         gameOverText = GetComponent<Text>();
         gameOverText.enabled = false;
     }
@@ -47,8 +51,7 @@ public class GameOverCheck : MonoBehaviour
             if(currentSeenTime >= timeBeforeDeath)
             {
                 //youdie
-                
-                gameOverText.enabled = true;
+                ShowGameOver();
             }
         }
         // if safe calm down
@@ -89,8 +92,26 @@ public class GameOverCheck : MonoBehaviour
         whatIsMyTime = ((float)((int)(10 * currentSeenTime)) / 10);
     }
 
+
+    //Game Over Screen events
+    void ShowGameOver()
+    {
+        gameOverText.enabled = true;
+        GameEvents.current.Die(currentRoom);
+    }
+
+
+    /// GAME EVENTS
+
     void OnGettingCaughtGameOver(bool caught)
     {
         seen = caught;
     }
+
+    private void GetRoomForSpawnpoint(float room)
+    {
+        currentRoom = room;
+    }
+
+
 }
