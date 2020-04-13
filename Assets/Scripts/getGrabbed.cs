@@ -7,7 +7,8 @@ public class getGrabbed : MonoBehaviour
     public bool isGrabbed = false;
     public bool isInside = false;
     Collider col;
-    
+    public Transform playerTransform;
+
     //triggerLights
     /*bool shallTriggerLights;
     public Light lit;
@@ -39,10 +40,17 @@ public class getGrabbed : MonoBehaviour
     {
         if (isInside)
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButton("Fire1"))
             {
+                if (!isGrabbed && playerTransform.rotation.y > 0)
+                {
+                    isGrabbed = true;
+                    Grab();
+                    GameEvents.current.GrabObject(transform.position);
+                }
                 
-                isGrabbed = !isGrabbed;
+                /*
+                 * isGrabbed = !isGrabbed;
                 if (!isGrabbed)
                     Ungrab();
 
@@ -50,9 +58,19 @@ public class getGrabbed : MonoBehaviour
                 if (isGrabbed)
                 {
                     Grab();
+                    
                 }
+                */
+            }
+            else
+            {
+                if (isGrabbed)
+                {
+                    GameEvents.current.GrabObject(transform.position);
+                    isGrabbed = false;
+                    Ungrab();
 
-
+                }
             }
         }
 
