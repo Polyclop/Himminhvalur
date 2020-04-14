@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.HighDefinition;
+
 public class GameOverCheck : MonoBehaviour
 {
     public bool seen;
@@ -19,7 +22,12 @@ public class GameOverCheck : MonoBehaviour
     public float whatIsMyTime;
 
     float currentRoom;
-    
+
+    // TEMPORARY
+    public caughtVignette vignetteScript;
+    public float vignetteIntensity;
+    [Range(0, 1f)]
+    public float vignetteThreshold;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +41,7 @@ public class GameOverCheck : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         currentTime = Time.time;
         if (seen)
         {
@@ -51,7 +60,7 @@ public class GameOverCheck : MonoBehaviour
             if(currentSeenTime >= timeBeforeDeath)
             {
                 //youdie
-                ShowGameOver();
+                //ShowGameOver();
             }
         }
         // if safe calm down
@@ -74,7 +83,7 @@ public class GameOverCheck : MonoBehaviour
                 {
                     //youdienot
 
-                    gameOverText.enabled = false;
+                    //gameOverText.enabled = false;
                 }
 
                 if (currentSeenTime <= 0)
@@ -90,6 +99,18 @@ public class GameOverCheck : MonoBehaviour
         }
 
         whatIsMyTime = ((float)((int)(10 * currentSeenTime)) / 10);
+
+
+        // TEMPORARY
+        vignetteIntensity = vignetteScript.vignetteIntensity;
+        if (vignetteIntensity >= vignetteThreshold)
+        {
+            ShowGameOver();
+        }
+        else {
+            gameOverText.enabled = false;
+        }
+            
     }
 
 

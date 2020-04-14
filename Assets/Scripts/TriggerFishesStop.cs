@@ -6,7 +6,7 @@ public class TriggerFishesStop : MonoBehaviour
 {
     public FollowTarget followScript;
     public Rigidbody[] roomBody;
-
+    AudioSource whaleSource;
 
     private void OnTriggerExit(Collider other)
     {
@@ -16,5 +16,6 @@ public class TriggerFishesStop : MonoBehaviour
             roomBody[i].useGravity = !roomBody[i].useGravity;
             roomBody[i].isKinematic = !roomBody[i].isKinematic;
         }
+        whaleSource.Play();
     }
 }

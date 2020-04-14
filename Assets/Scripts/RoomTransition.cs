@@ -16,10 +16,14 @@ public class RoomTransition : MonoBehaviour
 
     public float currentRoom;
 
+    AudioSource audSource;
+    bool didPlayAudio;
+
     // Start is called before the first frame update
     void Start()
     {
         currentRoom = leftRoomNumber;
+        audSource = GetComponent<AudioSource>();
     }
 
 
@@ -71,5 +75,11 @@ public class RoomTransition : MonoBehaviour
         // Room Change Event
         currentRoom = currentRoom == leftRoomNumber ? rightRoomNumber : leftRoomNumber;
         GameEvents.current.ChangeRoom(currentRoom);
+
+        if(audSource != null && !didPlayAudio)
+        {
+            didPlayAudio = true;
+            audSource.Play();
+        }
     }
 }

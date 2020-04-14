@@ -20,6 +20,8 @@ public class caughtVignette : MonoBehaviour
     [Range(0, 1f)]
     public float decreaseValue = 0.1f;
 
+    public float vignetteIntensity;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,7 +42,7 @@ public class caughtVignette : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        vignetteIntensity = vignette.intensity.value;
         if (seen)
         {
             if (vignette.intensity.value >= 1)

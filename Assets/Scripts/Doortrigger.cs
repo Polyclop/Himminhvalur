@@ -9,7 +9,8 @@ public class Doortrigger : MonoBehaviour
     public Animator porte;
     public Animator fenetre;
     AudioSource levierAudio;
-    public AudioSource doorAudio; 
+    public AudioSource doorAudio;
+    bool didOpenDoor;
 
     // etat de l'animation
     enum animationState
@@ -36,8 +37,9 @@ public class Doortrigger : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && isInZone)
+        if (Input.GetButtonDown("Fire1") && isInZone && !didOpenDoor)
         {
+            didOpenDoor = true;
             button.SetBool("activate", true);
             levierAudio.Play();
             GameEvents.current.BlockPlayerMove(false);

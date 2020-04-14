@@ -14,6 +14,10 @@ public class TriggerPointRoom2 : MonoBehaviour
     int rand;
     Vector3 impulseDirection;
 
+    AudioSource fallSource;
+    public AudioSource whaleSource;
+    public AudioClip[] fallClip;
+
     public bool enableTestImpulse;
 
     enum cameraDirection
@@ -32,7 +36,7 @@ public class TriggerPointRoom2 : MonoBehaviour
     void Start()
     {
         impulse = GetComponent<CinemachineImpulseSource>();
-
+        fallSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -51,7 +55,7 @@ public class TriggerPointRoom2 : MonoBehaviour
             TriggerGodsWrath();
             // Check where the player comes from
             comesFromLeft = (other.transform.position.x < transform.position.x);
-            ImpulseAtRandomDirection();
+            
             
         }
     }
@@ -104,6 +108,11 @@ public class TriggerPointRoom2 : MonoBehaviour
 
     private void TriggerGodsWrath()
     {
+        fallSource.clip = fallClip[Random.Range(0, fallClip.Length)];
+        fallSource.Play();
+        if(whaleSource != null)
+            whaleSource.Play();
+
         if (animator != null)
             animator.SetTrigger("trigger");
         for (int i=0; i< rb.Length; i++)
@@ -114,6 +123,6 @@ public class TriggerPointRoom2 : MonoBehaviour
             rb[i].WakeUp();
 
         }
-
+        ImpulseAtRandomDirection();
     }
 }

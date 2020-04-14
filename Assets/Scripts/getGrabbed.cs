@@ -9,6 +9,17 @@ public class getGrabbed : MonoBehaviour
     Collider col;
     public Transform playerTransform;
 
+    AudioSource audSource;
+    bool didPlaySource;
+    float baseValue;
+    [Range(0, 1)]
+    public float maxVolume = 0.5f;
+    [Range(0, 1f)]
+    public float growthValue = 0.1f;
+    [Range(0, 1f)]
+    public float decreaseValue = 0.2f;
+
+
     //triggerLights
     /*bool shallTriggerLights;
     public Light lit;
@@ -33,6 +44,7 @@ public class getGrabbed : MonoBehaviour
             }
         }
         */
+        audSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -74,7 +86,31 @@ public class getGrabbed : MonoBehaviour
             }
         }
 
-        
+        if (isGrabbed && Input.GetAxis("Horizontal") != 0)
+        {
+            if (!didPlaySource)
+            {
+                didPlaySource = true;
+                audSource.Play();
+            }
+            if (audSource.volume >= maxVolume)
+                audSource.volume = maxVolume;
+            else
+                audSource.volume += growthValue * Time.deltaTime;
+        }
+        else
+        {
+            if (audSource.volume <= baseValue)
+            {
+                audSource.volume = baseValue;
+                didPlaySource = false;
+                audSource.Stop();
+            }
+            else
+                audSource.volume -= decreaseValue * Time.deltaTime;
+        }
+
+
 
 
 
