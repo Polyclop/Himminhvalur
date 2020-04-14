@@ -8,6 +8,8 @@ public class Doortrigger : MonoBehaviour
     Animator button;
     public Animator porte;
     public Animator fenetre;
+    AudioSource levierAudio;
+    public AudioSource doorAudio; 
 
     // etat de l'animation
     enum animationState
@@ -20,7 +22,7 @@ public class Doortrigger : MonoBehaviour
     void Start()
     {
         button = GetComponent<Animator>();
-        
+        levierAudio = GetComponent<AudioSource>();
     }
     void OnTriggerEnter(Collider col)
     {
@@ -37,6 +39,7 @@ public class Doortrigger : MonoBehaviour
         if (Input.GetButtonDown("Fire1") && isInZone)
         {
             button.SetBool("activate", true);
+            levierAudio.Play();
             GameEvents.current.BlockPlayerMove(false);
         }
 
@@ -48,6 +51,7 @@ public class Doortrigger : MonoBehaviour
         if(message == (int)animationState.ended)
         {
             porte.SetBool("isRotating", true);
+            doorAudio.Play();
             GameEvents.current.BlockPlayerMove(true);
 
         }
