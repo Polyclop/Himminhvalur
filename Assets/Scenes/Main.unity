@@ -18954,6 +18954,61 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4755162152325726107, guid: f67893be79c9db5479b39bdc30ccb964,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 43.716473
+      objectReference: {fileID: 0}
+    - target: {fileID: 4755162152325726107, guid: f67893be79c9db5479b39bdc30ccb964,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4755162152325726107, guid: f67893be79c9db5479b39bdc30ccb964,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4755162152325726107, guid: f67893be79c9db5479b39bdc30ccb964,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4755162152325726107, guid: f67893be79c9db5479b39bdc30ccb964,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4755162152325726107, guid: f67893be79c9db5479b39bdc30ccb964,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 14.521073
+      objectReference: {fileID: 0}
+    - target: {fileID: 4755162152325726107, guid: f67893be79c9db5479b39bdc30ccb964,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.57471263
+      objectReference: {fileID: 0}
+    - target: {fileID: 4755162152325726107, guid: f67893be79c9db5479b39bdc30ccb964,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.2771392
+      objectReference: {fileID: 0}
+    - target: {fileID: 4755162152325726107, guid: f67893be79c9db5479b39bdc30ccb964,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.2771392
+      objectReference: {fileID: 0}
+    - target: {fileID: 4755162152325726107, guid: f67893be79c9db5479b39bdc30ccb964,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.2771392
+      objectReference: {fileID: 0}
+    - target: {fileID: 4755162152325726107, guid: f67893be79c9db5479b39bdc30ccb964,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 4786806101036702135, guid: f67893be79c9db5479b39bdc30ccb964,
         type: 3}
       propertyPath: m_StaticEditorFlags
