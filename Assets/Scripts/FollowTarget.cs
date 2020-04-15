@@ -8,6 +8,7 @@ public class FollowTarget : MonoBehaviour
 
     public bool isInside;
     public Transform playerTransform;
+    public Transform lookAtPlayerTransform;
     [Range(0, 5)]
     public float allowedDistanceClose = 0;
     [Range(0, 10)]
@@ -26,6 +27,8 @@ public class FollowTarget : MonoBehaviour
     RaycastHit hit;
     SphereCollider fishCollider;
 
+    Vector3 direction;
+
     int currentRoom;
     // Start is called before the first frame update
     void Start()
@@ -39,11 +42,13 @@ public class FollowTarget : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        closeFollowSpeed = closeFollowSpeedWhenWalking;
+        farFollowSpeed = farFollowSpeedWhenWalking;
         transform.LookAt(playerTransform);
-        if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit))
+        direction = playerTransform.position - transform.position;
+        if(Physics.Raycast(transform.position, direction /*transform.TransformDirection(Vector3.forward)*/, out hit))
         {
-            if(hit.distance >= allowedDistanceClose && hit.distance <= allowedDistanceFar)
+            if (hit.distance > allowedDistanceClose && hit.distance < allowedDistanceFar)
             {
                 currentFollowSpeed = closeFollowSpeed;
                 transform.position = Vector3.MoveTowards(transform.position, playerTransform.position, currentFollowSpeed * Time.deltaTime);
@@ -53,7 +58,7 @@ public class FollowTarget : MonoBehaviour
                 currentFollowSpeed = farFollowSpeed;
                 transform.position = Vector3.MoveTowards(transform.position, playerTransform.position, currentFollowSpeed * Time.deltaTime);
             }
-            else
+            else if(hit.distance <= allowedDistanceClose)
             {
                 currentFollowSpeed = 0;
             }

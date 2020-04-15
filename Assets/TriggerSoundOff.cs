@@ -19,7 +19,7 @@ public class TriggerSoundOff : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        baseValue = source.volume;
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -30,6 +30,7 @@ public class TriggerSoundOff : MonoBehaviour
             {
                 didStartDecrease = true;
                 source = gameObj.GetComponent<AudioSource>();
+                baseValue = source.volume;
                 gameObj.GetComponent<TriggerSoundOn>().enabled = false;
             }
         }
