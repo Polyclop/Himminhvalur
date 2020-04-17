@@ -8,7 +8,6 @@ public class FollowTarget : MonoBehaviour
 
     public bool isInside;
     public Transform playerTransform;
-    public Transform lookAtPlayerTransform;
     [Range(0, 5)]
     public float allowedDistanceClose = 0;
     [Range(0, 10)]
@@ -66,23 +65,6 @@ public class FollowTarget : MonoBehaviour
        
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        isInside = true;
-        if(other is CapsuleCollider)
-        {
-            GameEvents.current.BeSeen(isInside);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        isInside = false;
-        if (other is CapsuleCollider)
-        {
-            GameEvents.current.BeSeen(isInside);
-        }
-    }
 
     private void onChangingFishesMovement(float room)
     {

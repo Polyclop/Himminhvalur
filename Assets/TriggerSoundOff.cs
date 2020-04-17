@@ -30,7 +30,8 @@ public class TriggerSoundOff : MonoBehaviour
             {
                 didStartDecrease = true;
                 source = gameObj.GetComponent<AudioSource>();
-                baseValue = source.volume;
+                if (source != null)
+                    baseValue = source.volume;
                 gameObj.GetComponent<TriggerSoundOn>().enabled = false;
             }
         }
