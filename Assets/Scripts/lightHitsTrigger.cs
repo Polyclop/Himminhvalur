@@ -5,30 +5,37 @@ using UnityEngine;
 public class lightHitsTrigger : MonoBehaviour
 {
     public bool isInside;
-    public bool seen;
+    public bool seen = true;
     private void Start()
     {
         GameEvents.current.onMovingInOutOfSafeSpace += OnHidingInSafeSpace;
     }
     private void OnTriggerEnter(Collider other)
     {
-        isInside = true;
-
-        //if(other is CapsuleCollider)
-        GameEvents.current.BeSeen(isInside & seen);
+        if (other is CapsuleCollider)
+        {
+            isInside = true;
+            GameEvents.current.BeSeen(isInside & seen);
+        }
+            
           
     }
 
     private void OnTriggerStay(Collider other)
     {
-        GameEvents.current.BeSeen(isInside & seen);
+        if (other is CapsuleCollider)
+        {
+            GameEvents.current.BeSeen(isInside & seen);
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        isInside = false;
-        //if (other is CapsuleCollider)
-        GameEvents.current.BeSeen(isInside);
+        if (other is CapsuleCollider)
+        {
+            isInside = false;
+            GameEvents.current.BeSeen(isInside);
+        }
     }
 
 
