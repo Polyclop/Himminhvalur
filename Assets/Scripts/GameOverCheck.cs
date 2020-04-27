@@ -21,19 +21,28 @@ public class GameOverCheck : MonoBehaviour
 
     public float whatIsMyTime;
 
-    float currentRoom;
 
-    // TEMPORARY
-    public caughtVignette vignetteScript;
-    public float vignetteIntensity;
-    [Range(0, 1f)]
-    public float vignetteThreshold;
+    //Death Delegate
+    public delegate void OnDeathDelegate();
+    public static OnDeathDelegate deathDelegate;
+
+    public void OnDeath()
+    {
+        deathDelegate();
+    }
+
+    bool didShowGameOver = false;
+
+
+
+
+
+
 
     // Start is called before the first frame update
     void Start()
     {
         GameEvents.current.onBeingSeen += OnGettingCaughtGameOver;
-        GameEvents.current.onChangingRoom += GetRoomForSpawnpoint;
         gameOverText = GetComponent<Text>();
         gameOverText.enabled = false;
     }
@@ -55,12 +64,13 @@ public class GameOverCheck : MonoBehaviour
             // Check for death
             deltaTime = currentTime - startTimeDeath;
             currentSeenTime = lastMaxSafeTime + deltaTime;
-            lastMaxSeenTime = currentSeenTime;
+            lastMaxSeenTime = currentSeenTime / 2;
             
             if(currentSeenTime >= timeBeforeDeath)
             {
+                ShowGameOver();
                 //youdie
-                //ShowGameOver();
+
             }
         }
         // if safe calm down
@@ -101,15 +111,6 @@ public class GameOverCheck : MonoBehaviour
         whatIsMyTime = ((float)((int)(10 * currentSeenTime)) / 10);
 
 
-        // TEMPORARY
-        vignetteIntensity = vignetteScript.vignetteIntensity;
-        if (vignetteIntensity >= vignetteThreshold)
-        {
-            ShowGameOver();
-        }
-        else {
-            gameOverText.enabled = false;
-        }
             
     }
 
@@ -117,8 +118,12 @@ public class GameOverCheck : MonoBehaviour
     //Game Over Screen events
     void ShowGameOver()
     {
-        gameOverText.enabled = true;
-        GameEvents.current.Die(currentRoom);
+        deathTimerStarted = false;
+        lifeTimerStarted = false;
+        currentSeenTime = 0;
+        startTimeDeath = currentTime = Time.time;
+        seen = false;
+        OnDeath();
     }
 
 
@@ -129,10 +134,7 @@ public class GameOverCheck : MonoBehaviour
         seen = caught;
     }
 
-    private void GetRoomForSpawnpoint(float room)
-    {
-        currentRoom = room;
-    }
+
 
 
 }

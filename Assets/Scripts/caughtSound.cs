@@ -17,45 +17,80 @@ public class caughtSound : MonoBehaviour
     [Range(0, 1f)]
     public float decreaseValue = 0.1f;
 
+    // When dead
+    bool isDead;
+    float deadDuration, percentToAdd;
+    float startTime, currentTime, deltaTime;
+
+
     // Start is called before the first frame update
     void Start()
     {
         source = GetComponent<AudioSource>();
         baseValue = source.volume;
         GameEvents.current.onBeingSeen += OnGettingCaughtSound;
+        GameEvents.current.onDying += StopSound;
     }
 
     void OnGettingCaughtSound(bool caught)
     {
-        seen = caught;
+        seen = caught && !isDead;
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        if (seen)
+        if (isDead)
         {
-            if (!firstTimeSeen)
+            currentTime = Time.time;
+            deltaTime = currentTime - startTime;
+
+            percentToAdd = Time.deltaTime / deadDuration;
+            source.volume -= percentToAdd * (maxVolume - baseValue);
+
+            if(deltaTime >= deadDuration)
             {
-                firstTimeSeen = true;
-                source.Play();
+                source.volume = baseValue;
+                source.Stop();
+                firstTimeSeen = false;
+                isDead = false;
             }
-            if (source.volume >= maxVolume)
-                source.volume = maxVolume;
-            else
-                source.volume += growthValue * Time.deltaTime;
         }
         else
         {
-            if (source.volume <= baseValue)
+            if (seen)
             {
-                source.volume = baseValue;
-                firstTimeSeen = false;
-                source.Stop();
+                if (!firstTimeSeen)
+                {
+                    firstTimeSeen = true;
+                    source.Play();
+                }
+                if (source.volume >= maxVolume)
+                    source.volume = maxVolume;
+                else
+                    source.volume += growthValue * Time.deltaTime;
             }
             else
-                source.volume -= decreaseValue * Time.deltaTime;
+            {
+                if (source.volume <= baseValue)
+                {
+                    source.volume = baseValue;
+                    firstTimeSeen = false;
+                    source.Stop();
+                }
+                else
+                    source.volume -= decreaseValue * Time.deltaTime;
+            }
         }
+        
+    }
+
+    private void StopSound(float roomNumber, float respawnDuration)
+    {
+        isDead = true;
+        seen = false;
+        deadDuration = respawnDuration;
+        startTime = currentTime = Time.time;
     }
 }

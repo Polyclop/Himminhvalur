@@ -22,6 +22,11 @@ public class caughtVignette : MonoBehaviour
 
     public float vignetteIntensity;
 
+    // on Death
+    bool isDead;
+    float startTime, currentTime, deltaTime;
+    float percentToAdd, deadDuration;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,30 +37,58 @@ public class caughtVignette : MonoBehaviour
         }
         baseValue = vignette.intensity.value;
         GameEvents.current.onBeingSeen += OnGettingCaughtVignette;
+        GameEvents.current.onDying += StopVignette;
     }
 
     void OnGettingCaughtVignette(bool caught)
     {
-        seen = caught;
+        seen = caught && !isDead;
     }
 
     // Update is called once per frame
     void Update()
     {
         vignetteIntensity = vignette.intensity.value;
-        if (seen)
+        if (isDead)
         {
-            if (vignette.intensity.value >= 1)
-                vignette.intensity.value = 1;
-            else
-                vignette.intensity.value += growthValue * Time.deltaTime;
+            currentTime = Time.time;
+            deltaTime = currentTime - startTime;
+
+            percentToAdd = Time.deltaTime / deadDuration;
+            vignette.intensity.value -= percentToAdd * (maxValue - baseValue);
+
+            if (deltaTime >= deadDuration)
+            {
+                vignette.intensity.value = baseValue;
+                isDead = false;
+            }
         }
         else
         {
-            if (vignette.intensity.value <= baseValue)
-                vignette.intensity.value = baseValue;
+            if (seen)
+            {
+                if (vignette.intensity.value >= maxValue)
+                    vignette.intensity.value = maxValue;
+                else
+                    vignette.intensity.value += growthValue * Time.deltaTime;
+            }
             else
-                vignette.intensity.value -= decreaseValue * Time.deltaTime;
+            {
+                if (vignette.intensity.value <= baseValue)
+                    vignette.intensity.value = baseValue;
+                else
+                    vignette.intensity.value -= decreaseValue * Time.deltaTime;
+            }
         }
+        
+    }
+
+
+    private void StopVignette(float roomNumber, float respawnDuration)
+    {
+        isDead = true;
+        seen = false;
+        deadDuration = respawnDuration;
+        startTime = currentTime = Time.time;
     }
 }

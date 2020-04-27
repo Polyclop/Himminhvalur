@@ -37,6 +37,10 @@ public class move : MonoBehaviour
     public bool isGrabbing;
     bool isRunning = false;
 
+    //Timing for death wait
+    bool deathTimerStarted;
+    float startTime, currentTime, deltaTime;
+    float waitDuration;
 
 
         /// Init
@@ -49,6 +53,7 @@ public class move : MonoBehaviour
         GameEvents.current.onGrabObject += OnPlayerGrab;
         GameEvents.current.onBlockingPlayerMove += AllowPlayerMovement;
         GameEvents.current.onChangingRoom += ChangePlayerWalkType;
+        GameEvents.current.onDying += Respawn;
 
     }
 
@@ -62,6 +67,21 @@ public class move : MonoBehaviour
         if (!isGrabbing)
         {
             FlipCheck();
+        }
+
+
+        // Handle timer preventing to move when dead
+        if (deathTimerStarted)
+        {
+            currentTime = Time.time;
+            deltaTime = currentTime - startTime;
+            if(deltaTime >= waitDuration)
+            {
+                canMove = true;
+                canJump = true;
+                deltaTime = 0;
+                deathTimerStarted = false;
+            }
         }
     }
 
@@ -169,5 +189,17 @@ public class move : MonoBehaviour
         // if player is in rooms 2 or 4 he's running
         isRunning = (room == 2 || room == 4);
         speed = isRunning ? runSpeed : walkSpeed;
+    }
+
+    private void Respawn(float roomNumber, float respawnDuration)
+    {
+        // Set Position on respawn point
+        transform.position = GameObject.FindGameObjectWithTag("Respawn " + roomNumber.ToString()).transform.position;
+        // Cannot move for given duration
+        startTime = currentTime = Time.time;
+        deathTimerStarted = true;
+        canMove = false;
+        canJump = false;
+        waitDuration = respawnDuration;
     }
 }
