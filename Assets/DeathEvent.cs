@@ -24,7 +24,7 @@ public class DeathEvent : MonoBehaviour
     void Start()
     {
         //GameEvents.current.onDying += onDeathEvent;
-        GameOverCheck.deathDelegate += StartDeathEvent;
+        caughtJauge.deathDelegate += StartDeathEvent;
         GameEvents.current.onChangingRoom += GetRoomForSpawnpoint;
 
         blackScreen = GetComponent<Image>();

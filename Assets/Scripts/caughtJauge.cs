@@ -6,44 +6,73 @@ using UnityEngine.UI;
 public class caughtJauge : MonoBehaviour
 {
     public bool seen = false;
-    public float increaseRate = 10;
-    public float decreaseRate = 10;
+    [Range(0, 1)]
+    public float increaseRate = 0.2f;
+    [Range(0, 1)]
+    public float decreaseRate = 0.4f;
 
     Slider slider;
+
+    //Death Delegate
+    public delegate void OnDeathDelegate();
+    public static OnDeathDelegate deathDelegate;
+
+
+    bool isDead;
+
+    public void OnDeath()
+    {
+        deathDelegate();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         slider = GetComponent<Slider>();
         GameEvents.current.onBeingSeen += OnGettingCaughtSlider;
+        GameEvents.current.onDying += InitBackSlider;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        if (seen)
+        if (!isDead)
         {
-            if (slider.value < 1)
-                slider.value += 0.01f * increaseRate * Time.deltaTime;
-            else
-                HandleDeath();
-        }
-        else
-        {
-            if(slider.value > 0)
+            if (seen)
             {
-                slider.value -= 0.01f * decreaseRate * Time.deltaTime;
+                if (slider.value < 1)
+                    slider.value += increaseRate * Time.deltaTime;
+                else
+                    HandleDeath();
+            }
+            else
+            {
+                if (slider.value > 0)
+                {
+                    slider.value -= decreaseRate * Time.deltaTime;
+                }
             }
         }
+        
     }
 
     void OnGettingCaughtSlider(bool caught)
     {
-        seen = caught;
+        seen = caught && !isDead;
     }
 
     void HandleDeath()
     {
+        seen = false;
+        isDead = true;
 
+        OnDeath();
+    }
+
+    void InitBackSlider(float currentRoom, float deathDuration)
+    {
+        slider.value = 0;
+        seen = false;
+        isDead = false;
     }
 }

@@ -91,6 +91,16 @@ public class move : MonoBehaviour
 
     void HandleMove()
     {
+        if (Input.GetButton("Jump")){
+            isRunning = true;
+            speed = runSpeed;
+        }
+        else
+        {
+            isRunning = false;
+            speed = walkSpeed;
+        }
+
         if (canMove)
         {
             tsf.position = new Vector3(tsf.localPosition.x + (Input.GetAxis("Horizontal") * speed * Time.deltaTime), tsf.localPosition.y, tsf.localPosition.z);
@@ -111,13 +121,15 @@ public class move : MonoBehaviour
             rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
 
-        if (Input.GetButtonDown("Jump") && canJump)
+        /*
+         * if (Input.GetButtonDown("Jump") && canJump)
         {
             canJump = false;
             rb.velocity = Vector3.up * jumpVelocity;
             animator.SetBool("isJumping", true);
             animator.SetBool("isWalking", false);
         }
+        */
     }
 
     void FlipCheck()

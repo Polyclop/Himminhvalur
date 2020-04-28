@@ -21,7 +21,7 @@ public class GameOverCheck : MonoBehaviour
 
     public float whatIsMyTime;
 
-
+    /*
     //Death Delegate
     public delegate void OnDeathDelegate();
     public static OnDeathDelegate deathDelegate;
@@ -30,8 +30,8 @@ public class GameOverCheck : MonoBehaviour
     {
         deathDelegate();
     }
-
-    bool didShowGameOver = false;
+    */
+    
 
 
 
@@ -68,7 +68,7 @@ public class GameOverCheck : MonoBehaviour
             
             if(currentSeenTime >= timeBeforeDeath)
             {
-                ShowGameOver();
+                //ShowGameOver();
                 //youdie
 
             }
@@ -123,7 +123,7 @@ public class GameOverCheck : MonoBehaviour
         currentSeenTime = 0;
         startTimeDeath = currentTime = Time.time;
         seen = false;
-        OnDeath();
+        //OnDeath();
     }
 
 
