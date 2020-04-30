@@ -20,15 +20,17 @@ public class DeathEvent : MonoBehaviour
 
     float currentRoom;
 
+    AudioSource whaleAudio;
+
     // Start is called before the first frame update
     void Start()
     {
         //GameEvents.current.onDying += onDeathEvent;
-        caughtJauge.deathDelegate += StartDeathEvent;
+        FollowPlayerFromAfar.deathDelegate += StartDeathEvent;
         GameEvents.current.onChangingRoom += GetRoomForSpawnpoint;
 
         blackScreen = GetComponent<Image>();
-
+        whaleAudio = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -73,7 +75,7 @@ public class DeathEvent : MonoBehaviour
         startedFadeIn = true;
         startTime = Time.time;
         screenAlpha = 0;
-
+        whaleAudio.Play();
     }
 
     private void LaunchRepopProcess()

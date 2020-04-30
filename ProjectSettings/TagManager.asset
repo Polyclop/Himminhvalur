@@ -7,6 +7,10 @@ TagManager:
   - Respawn 1,5
   - Respawn 2
   - Respawn 4
+  - WhaleSpawn2
+  - WhaleSpawn1.5
+  - WhaleSpawn3
+  - WhaleSpawn4
   layers:
   - Default
   - TransparentFX

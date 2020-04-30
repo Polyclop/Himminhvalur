@@ -91,6 +91,7 @@ public class move : MonoBehaviour
 
     void HandleMove()
     {
+        
         if (Input.GetButton("Jump")){
             isRunning = true;
             speed = runSpeed;
@@ -105,6 +106,7 @@ public class move : MonoBehaviour
         {
             tsf.position = new Vector3(tsf.localPosition.x + (Input.GetAxis("Horizontal") * speed * Time.deltaTime), tsf.localPosition.y, tsf.localPosition.z);
         }
+
         animator.SetBool("isWalking", Input.GetAxis("Horizontal") != 0 && canMove && !isRunning);
         animator.SetBool("isRunning", Input.GetAxis("Horizontal") != 0 && canMove && isRunning);
 

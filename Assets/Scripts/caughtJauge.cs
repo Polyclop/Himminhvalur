@@ -67,6 +67,7 @@ public class caughtJauge : MonoBehaviour
         isDead = true;
 
         OnDeath();
+        GameEvents.current.BlockPlayerMove(false);
     }
 
     void InitBackSlider(float currentRoom, float deathDuration)

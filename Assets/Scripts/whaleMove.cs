@@ -20,6 +20,7 @@ public class whaleMove : MonoBehaviour
 
     bool movedRight;
 
+    [HideInInspector]
     public Transform whalouTransform;
 
     float angle;
@@ -27,15 +28,22 @@ public class whaleMove : MonoBehaviour
 
     // Whale pattern depends on room
     float currentRoom;
-    bool shallMove;
+    public bool shallMove;
+    Animator whaleAnimator;
+    Transform transformToFollow;
+    public Transform eyeTransform;
+    public GameObject whaleSpawn3;
 
+    [Range(0, 20)] public float whaleOffset;
 
     // Start is called before the first frame update
     void Start()
     {
         whalouTransform = GetComponent<Transform>();
+        whaleAnimator = GetComponent<Animator>();
         pos = whalouTransform.position;
         GameEvents.current.onChangingRoom += AdaptWhalePattern;
+        whaleSpawn3 = GameObject.FindGameObjectWithTag("WhaleSpawn3");
     }
 
     // Update is called once per frame
@@ -53,19 +61,20 @@ public class whaleMove : MonoBehaviour
 
         if (shallMove)
         {
+            
             if (moveRight)
             {
                 pos += transform.right * moveSpeed * Time.deltaTime;
-                whalouTransform.position = pos + transform.up * Mathf.Sin(-Time.time * frequency) * magnitude;
-                transform.rotation = Quaternion.Euler(0, 0, Mathf.Sin((Time.time * frequency) - 1) * magnitude * rotationForce);
+                whalouTransform.position = pos + transform.up * (Mathf.Sin(-Time.time * frequency) + whaleOffset) * magnitude;
+                transform.rotation = Quaternion.Euler(0, 0, Mathf.Sin((Time.time * frequency) - 1 + whaleOffset) * magnitude * rotationForce);
 
 
             }
             else
             {
                 pos -= transform.right * moveSpeed * Time.deltaTime;
-                whalouTransform.position = pos + transform.up * Mathf.Sin(Time.time * frequency) * magnitude;
-                transform.rotation = Quaternion.Euler(0, 0, Mathf.Sin((Time.time * frequency) - 1) * magnitude * rotationForce);
+                whalouTransform.position = pos + transform.up * (Mathf.Sin(Time.time * frequency) + whaleOffset) * magnitude;
+                transform.rotation = Quaternion.Euler(0, 0, Mathf.Sin((Time.time * frequency) - 1 + whaleOffset) * magnitude * rotationForce);
 
 
             }
@@ -75,7 +84,10 @@ public class whaleMove : MonoBehaviour
             }
             movedRight = moveRight;
         }
-        
+        else
+        {
+            transform.position = transformToFollow.position - eyeTransform.position + transform.position;
+        }
 
         
             
@@ -86,14 +98,33 @@ public class whaleMove : MonoBehaviour
         currentRoom = room;
         switch (currentRoom)
         {
+            case 1.5f:
+                shallMove = false;
+                transformToFollow = GameObject.FindGameObjectWithTag("WhaleSpawn1.5").transform;
+                transform.localRotation = Quaternion.Euler(0, -90, -20);
+                break;
+            case 2: shallMove = false;
+                transformToFollow = GameObject.FindGameObjectWithTag("WhaleSpawn2").transform;
+                transform.localRotation = Quaternion.Euler(0, -90, -20);
+                break;
             case 3: shallMove = true;
-                transform.position = GameObject.FindGameObjectWithTag("WhaleSpawn3").transform.position;
+                transform.position = whaleSpawn3.transform.position;
+                transform.localRotation = Quaternion.Euler(0, -90, 0);
+                pos = whalouTransform.position;
                 break;
             case 3.5f: shallMove = true;
-                transform.position = GameObject.FindGameObjectWithTag("WhaleSpawn3").transform.position;
+                transform.position = whaleSpawn3.transform.position;
+                transform.localRotation = Quaternion.Euler(0, -90, 0);
+                pos = whalouTransform.position;
+                break;
+            case 4:
+                shallMove = false;
+                transformToFollow = GameObject.FindGameObjectWithTag("WhaleSpawn4").transform;
+                transform.localRotation = Quaternion.Euler(0, -90, -20);
                 break;
             default: shallMove = false;
                 break;
         }
+        whaleAnimator.SetBool("isMoving", shallMove);
     }
 }
