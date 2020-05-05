@@ -52,7 +52,6 @@ public class move : MonoBehaviour
         speed = isRunning ? runSpeed : walkSpeed;
         GameEvents.current.onGrabObject += OnPlayerGrab;
         GameEvents.current.onBlockingPlayerMove += AllowPlayerMovement;
-        GameEvents.current.onChangingRoom += ChangePlayerWalkType;
         GameEvents.current.onDying += Respawn;
 
     }
@@ -94,12 +93,12 @@ public class move : MonoBehaviour
         
         if (Input.GetButton("Jump")){
             isRunning = true;
-            speed = runSpeed;
+            speed = isGrabbing ? grabSpeed : runSpeed;
         }
         else
         {
             isRunning = false;
-            speed = walkSpeed;
+            speed = isGrabbing ? grabSpeed : walkSpeed;
         }
 
         if (canMove)
@@ -190,20 +189,22 @@ public class move : MonoBehaviour
         }*/
         canJump = !canJump;
         animator.SetBool("isPushing", isGrabbing);
-        speed = isGrabbing ? grabSpeed : runSpeed; 
+        speed = isGrabbing ? grabSpeed : (isRunning ? runSpeed : walkSpeed); 
     }
 
     private void AllowPlayerMovement(bool isAllowed)
     {
         canMove = isAllowed;
     }
-
+      
+    /*
     private void ChangePlayerWalkType(float room)
     {
         // if player is in rooms 2 or 4 he's running
         isRunning = (room == 2 || room == 4);
         speed = isRunning ? runSpeed : walkSpeed;
     }
+    */
 
     private void Respawn(float roomNumber, float respawnDuration)
     {

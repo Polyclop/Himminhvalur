@@ -53,9 +53,12 @@ public class Doortrigger : MonoBehaviour
         if(message == (int)animationState.ended)
         {
             porte.SetBool("isRotating", true);
-            doorAudio.Play();
+            if (doorAudio != null)
+            {
+                doorAudio.Play();
+            }
             GameEvents.current.BlockPlayerMove(true);
-
+            didOpenDoor = false;
         }
     }
 }
