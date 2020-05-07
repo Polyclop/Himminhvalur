@@ -42,6 +42,7 @@ public class move : MonoBehaviour
     float startTime, currentTime, deltaTime;
     float waitDuration;
 
+    float animatorPrevSpeed;
 
         /// Init
     void Start()
@@ -53,7 +54,6 @@ public class move : MonoBehaviour
         GameEvents.current.onGrabObject += OnPlayerGrab;
         GameEvents.current.onBlockingPlayerMove += AllowPlayerMovement;
         GameEvents.current.onDying += Respawn;
-
     }
 
         /// Game Loop
@@ -63,10 +63,8 @@ public class move : MonoBehaviour
 
         HandleMove();
         HandleJump();
-        if (!isGrabbing)
-        {
+
             FlipCheck();
-        }
 
 
         // Handle timer preventing to move when dead
@@ -86,7 +84,8 @@ public class move : MonoBehaviour
 
 
 
-        ///  MOVEMENT
+
+    ///  MOVEMENT
 
     void HandleMove()
     {
@@ -101,13 +100,17 @@ public class move : MonoBehaviour
             speed = isGrabbing ? grabSpeed : walkSpeed;
         }
 
-        if (canMove)
+        if (canMove && (!isGrabbing || isGrabbing && Input.GetAxis("Horizontal")>= 0))
         {
             tsf.position = new Vector3(tsf.localPosition.x + (Input.GetAxis("Horizontal") * speed * Time.deltaTime), tsf.localPosition.y, tsf.localPosition.z);
         }
 
         animator.SetBool("isWalking", Input.GetAxis("Horizontal") != 0 && canMove && !isRunning);
         animator.SetBool("isRunning", Input.GetAxis("Horizontal") != 0 && canMove && isRunning);
+
+
+        animator.speed = (isGrabbing && Input.GetAxis("Horizontal") <= 0) ? 0.2f : 1;
+ 
 
     }
 
@@ -135,36 +138,58 @@ public class move : MonoBehaviour
 
     void FlipCheck()
     {
-        
-        Vector2 scale = transform.localScale;
-        if (rotator == 0 && Input.GetAxis("Horizontal") < 0 || rotator == 180 && Input.GetAxis("Horizontal") > 0) flipSprite = true;
-        else flipSprite = false;
+        if (!isGrabbing)
+        {
+            if (rotator == 0 && Input.GetAxis("Horizontal") < 0 || rotator == 180 && Input.GetAxis("Horizontal") > 0) flipSprite = true;
+            else flipSprite = false;
+            
+        }
+        else
+        {
+            if (rotator == 180) flipSprite = true;
+            else flipSprite = false;
+            
+        }
         if (flipSprite)
         {
-            scale.x *= -1;
-            if (rotator == 180)
-            {
-                rotator = 0;
-                //maggieTransform.localPosition = new Vector2(transform.localPosition.x + ((maggieRenderer.size.x * maggieTransform.localScale.x) / 2), maggieTransform.localPosition.y);
-            }
-            else
-            {
-                rotator = 180;
-                //maggieTransform.localPosition = new Vector2(transform.localPosition.x - ((maggieRenderer.size.x * maggieTransform.localScale.y) / 2), maggieTransform.localPosition.y);
-
-            }
-            
-            
-            //transform.localScale = scale;
-            tsf.Rotate(0, 180, 0, Space.World);
-            childCenter.localPosition = new Vector3(childCenter.localPosition.x * -1, childCenter.localPosition.y, childCenter.localPosition.z);
-
+            Flip();
         }
 
     }
 
+    public void Flip()
+    {
+        if (rotator == 180)
+        {
+            rotator = 0;
+            //maggieTransform.localPosition = new Vector2(transform.localPosition.x + ((maggieRenderer.size.x * maggieTransform.localScale.x) / 2), maggieTransform.localPosition.y);
+        }
+        else
+        {
+            rotator = 180;
+            //maggieTransform.localPosition = new Vector2(transform.localPosition.x - ((maggieRenderer.size.x * maggieTransform.localScale.y) / 2), maggieTransform.localPosition.y);
 
-        /// GAME EVENTS
+        }
+
+
+        //transform.localScale = scale;
+        tsf.Rotate(0, 180, 0, Space.World);
+        childCenter.localPosition = new Vector3(childCenter.localPosition.x * -1, childCenter.localPosition.y, childCenter.localPosition.z);
+
+    }
+
+    public void LetPlayerMove()
+    {
+        canMove = true;
+        
+    }
+
+    /// GAME EVENTS
+    void AllowPlayerMovement(bool isAllowed)
+    {
+        canMove = isAllowed;
+    }
+
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -187,16 +212,15 @@ public class move : MonoBehaviour
             transform.Rotate(0, 180, 0, Space.Self);
 
         }*/
+        canMove = false;
+
         canJump = !canJump;
         animator.SetBool("isPushing", isGrabbing);
         speed = isGrabbing ? grabSpeed : (isRunning ? runSpeed : walkSpeed); 
     }
 
-    private void AllowPlayerMovement(bool isAllowed)
-    {
-        canMove = isAllowed;
-    }
-      
+
+
     /*
     private void ChangePlayerWalkType(float room)
     {

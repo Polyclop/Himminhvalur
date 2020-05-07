@@ -146,6 +146,10 @@ public class getGrabbed : MonoBehaviour
 
     void Grab()
     {
+        if(Input.GetAxis("Horizontal") < 0)
+        {
+            playerTransform.gameObject.GetComponent<move>().Flip();
+        }
         this.transform.parent = col.transform;
         //shallTriggerLights = true;
         //lightHits.enabled = true;
