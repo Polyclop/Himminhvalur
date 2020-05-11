@@ -136,8 +136,8 @@ Material:
     - Vector1_A604658: 0.06
     - Vector1_B7726DD9: 0.1
     - Vector1_BE458287: 1
-    - Vector1_D3ADB262: 1
-    - Vector1_DF3A8003: 1
+    - Vector1_D3ADB262: 0.77
+    - Vector1_DF3A8003: 0.23
     - _AORemapMax: 1
     - _AORemapMin: 0
     - _ATDistance: 1
