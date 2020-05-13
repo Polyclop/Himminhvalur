@@ -156,15 +156,15 @@ MonoBehaviour:
   m_DefaultLookDevProfile: {fileID: 0}
   m_RenderingPathDefaultCameraFrameSettings:
     bitDatas:
-      data1: 70280059813709
-      data2: 4539628424926265344
+      data1: 57073034837837
+      data2: 4539628424792047616
     lodBias: 1
     lodBiasMode: 0
     lodBiasQualityLevel: 0
     maximumLODLevel: 0
     maximumLODLevelMode: 0
     maximumLODLevelQualityLevel: 0
-    materialQuality: 0
+    materialQuality: 1
   m_RenderingPathDefaultBakedOrCustomReflectionFrameSettings:
     bitDatas:
       data1: 64942043591501
@@ -189,8 +189,8 @@ MonoBehaviour:
     materialQuality: 0
   m_RenderPipelineSettings:
     supportShadowMask: 1
-    supportSSR: 1
-    supportSSAO: 1
+    supportSSR: 0
+    supportSSAO: 0
     supportSubsurfaceScattering: 0
     increaseSssSampleCount: 1
     supportVolumetrics: 1
