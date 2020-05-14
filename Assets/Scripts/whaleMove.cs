@@ -44,6 +44,7 @@ public class whaleMove : MonoBehaviour
         pos = whalouTransform.position;
         GameEvents.current.onChangingRoom += AdaptWhalePattern;
         whaleSpawn3 = GameObject.FindGameObjectWithTag("WhaleSpawn3");
+        transformToFollow = GameObject.FindGameObjectWithTag("WhaleSpawn1.5").transform;
     }
 
     // Update is called once per frame
@@ -102,10 +103,16 @@ public class whaleMove : MonoBehaviour
                 shallMove = false;
                 transformToFollow = GameObject.FindGameObjectWithTag("WhaleSpawn1.5").transform;
                 transform.localRotation = Quaternion.Euler(0, -90, -20);
+                whalouTransform.localScale *= moveRight ? -1 : 1;
+                moveRight = movedRight = false;
                 break;
             case 2: shallMove = false;
                 transformToFollow = GameObject.FindGameObjectWithTag("WhaleSpawn2").transform;
                 transform.localRotation = Quaternion.Euler(0, -90, -20);
+                whalouTransform.localScale *= moveRight ? -1 : 1;
+                moveRight = movedRight = false;
+
+
                 break;
             case 3: shallMove = true;
                 transform.position = whaleSpawn3.transform.position;
@@ -121,6 +128,10 @@ public class whaleMove : MonoBehaviour
                 shallMove = false;
                 transformToFollow = GameObject.FindGameObjectWithTag("WhaleSpawn4").transform;
                 transform.localRotation = Quaternion.Euler(0, -90, -20);
+                whalouTransform.localScale *= moveRight ? -1 : 1;
+                moveRight = movedRight = false;
+
+
                 break;
             default: shallMove = false;
                 break;
