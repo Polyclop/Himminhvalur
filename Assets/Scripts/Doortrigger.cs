@@ -7,8 +7,9 @@ public class Doortrigger : MonoBehaviour
     public bool isInZone = false;
     Animator button;
     public Animator porte;
-    public Animator fenetre;
+    
     AudioSource levierAudio;
+   
     public AudioSource doorAudio;
     bool didOpenDoor;
 
@@ -24,6 +25,8 @@ public class Doortrigger : MonoBehaviour
     {
         button = GetComponent<Animator>();
         levierAudio = GetComponent<AudioSource>();
+        
+
     }
     void OnTriggerEnter(Collider col)
     {
@@ -42,6 +45,7 @@ public class Doortrigger : MonoBehaviour
             didOpenDoor = true;
             button.SetBool("activate", true);
             levierAudio.Play();
+            
             GameEvents.current.BlockPlayerMove(false);
         }
 

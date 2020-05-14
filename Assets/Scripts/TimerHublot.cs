@@ -10,11 +10,18 @@ public class TimerHublot : MonoBehaviour
     Animator hublotAnimator;
     public Animator levierAnimator;
     BoxCollider lightTrigger;
+    public AudioClip ouvertureAudio;
+    public AudioClip fermetureAudio;
+    AudioSource voletAudio;
+
 
     private void Start()
     {
         hublotAnimator = GetComponent<Animator>();
         lightTrigger = GetComponentInParent<BoxCollider>();
+        voletAudio = GetComponent<AudioSource>();
+        voletAudio.clip = (Random.Range(0, 2) == 0) ? fermetureAudio : ouvertureAudio;
+        
     }
 
     // Update is called once per frame
@@ -40,6 +47,7 @@ public class TimerHublot : MonoBehaviour
             isStarted = false;
 
             OpenHublot();
+
         }
 
         
@@ -56,9 +64,16 @@ public class TimerHublot : MonoBehaviour
         hublotAnimator.SetBool("isRotating", false);
         levierAnimator.SetBool("activate", false);
         lightTrigger.enabled = true;
+        voletAudio.clip = (Random.Range(0, 2) == 0) ? fermetureAudio : ouvertureAudio;
+        voletAudio.Play();
+        
+       
+       
+
+
     }
 
-   
+
 
 
 }
