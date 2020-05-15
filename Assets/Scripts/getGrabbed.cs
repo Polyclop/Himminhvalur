@@ -19,6 +19,7 @@ public class getGrabbed : MonoBehaviour
     [Range(0, 1f)]
     public float decreaseValue = 0.2f;
 
+    Material outlineMaterial;
 
     //triggerLights
     /*bool shallTriggerLights;
@@ -45,6 +46,7 @@ public class getGrabbed : MonoBehaviour
         }
         */
         audSource = GetComponent<AudioSource>();
+        outlineMaterial = GetComponent<Renderer>().materials[1];
     }
 
     // Update is called once per frame
@@ -129,17 +131,19 @@ public class getGrabbed : MonoBehaviour
         {
             isInside = true;
             col = other;
+            outlineMaterial.SetFloat("Boolean_5842AB85", 1);
             //Physics.IgnoreCollision(other, boxCollider, true);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-            if (other is CapsuleCollider)
-            {
-                isInside = false;
-                //Physics.IgnoreCollision(other, boxCollider, false);
-            }
+        if (other is CapsuleCollider)
+        {
+            isInside = false;
+            outlineMaterial.SetFloat("Boolean_5842AB85", 0);
+            //Physics.IgnoreCollision(other, boxCollider, false);
+        }
     }
 
 
