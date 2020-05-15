@@ -36,6 +36,13 @@ public class whaleMove : MonoBehaviour
 
     [Range(0, 20)] public float whaleOffset;
 
+
+    Material whaleMaterial;
+    [ColorUsage(true, true)]
+    public Color whaleBaseEmissionColor;
+    [ColorUsage(true, true)]
+    public Color whaleHighIntensityColor;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +52,10 @@ public class whaleMove : MonoBehaviour
         GameEvents.current.onChangingRoom += AdaptWhalePattern;
         whaleSpawn3 = GameObject.FindGameObjectWithTag("WhaleSpawn3");
         transformToFollow = GameObject.FindGameObjectWithTag("WhaleSpawn1.5").transform;
+
+        whaleMaterial = GetComponentInChildren<Renderer>().material;
+        whaleBaseEmissionColor = whaleMaterial.GetColor("Color_FD08B2B8");
+        whaleHighIntensityColor = new Color(whaleBaseEmissionColor.r * 500, whaleBaseEmissionColor.g * 500, whaleBaseEmissionColor.b * 500);
     }
 
     // Update is called once per frame
@@ -105,24 +116,27 @@ public class whaleMove : MonoBehaviour
                 transform.localRotation = Quaternion.Euler(0, -90, -20);
                 whalouTransform.localScale *= moveRight ? -1 : 1;
                 moveRight = movedRight = false;
+                whaleMaterial.SetColor("Color_FD08B2B8", whaleBaseEmissionColor);
                 break;
             case 2: shallMove = false;
                 transformToFollow = GameObject.FindGameObjectWithTag("WhaleSpawn2").transform;
                 transform.localRotation = Quaternion.Euler(0, -90, -20);
                 whalouTransform.localScale *= moveRight ? -1 : 1;
                 moveRight = movedRight = false;
-
+                whaleMaterial.SetColor("Color_FD08B2B8", whaleBaseEmissionColor);
 
                 break;
             case 3: shallMove = true;
                 transform.position = whaleSpawn3.transform.position;
                 transform.localRotation = Quaternion.Euler(0, -90, 0);
                 pos = whalouTransform.position;
+                whaleMaterial.SetColor("Color_FD08B2B8", whaleHighIntensityColor);
                 break;
             case 3.5f: shallMove = true;
                 transform.position = whaleSpawn3.transform.position;
                 transform.localRotation = Quaternion.Euler(0, -90, 0);
                 pos = whalouTransform.position;
+                whaleMaterial.SetColor("Color_FD08B2B8", whaleHighIntensityColor);
                 break;
             case 4:
                 shallMove = false;
@@ -130,6 +144,7 @@ public class whaleMove : MonoBehaviour
                 transform.localRotation = Quaternion.Euler(0, -90, -20);
                 whalouTransform.localScale *= moveRight ? -1 : 1;
                 moveRight = movedRight = false;
+                whaleMaterial.SetColor("Color_FD08B2B8", whaleBaseEmissionColor);
 
 
                 break;
