@@ -13,6 +13,9 @@ public class Doortrigger : MonoBehaviour
     public AudioSource doorAudio;
     bool didOpenDoor;
 
+    Material outlineMaterial, levierBaseOutlineMaterial;
+    public MeshRenderer levierBaseRenderer;
+
     // etat de l'animation
     enum animationState
     {
@@ -25,17 +28,23 @@ public class Doortrigger : MonoBehaviour
     {
         button = GetComponent<Animator>();
         levierAudio = GetComponent<AudioSource>();
-        
 
+        outlineMaterial = GetComponent<Renderer>().materials[1];
+        levierBaseOutlineMaterial = levierBaseRenderer.materials[1];
     }
     void OnTriggerEnter(Collider col)
     {
         isInZone = true;
+        outlineMaterial.SetFloat("Boolean_5842AB85", 1);
+        levierBaseOutlineMaterial.SetFloat("Boolean_5842AB85", 1);
     }
     void OnTriggerExit(Collider col)
 
     {
         isInZone = false;
+        outlineMaterial.SetFloat("Boolean_5842AB85", 0);
+        levierBaseOutlineMaterial.SetFloat("Boolean_5842AB85", 0);
+
     }
 
     void Update()

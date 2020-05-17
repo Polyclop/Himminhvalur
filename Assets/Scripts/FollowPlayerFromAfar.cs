@@ -37,6 +37,7 @@ public class FollowPlayerFromAfar : MonoBehaviour
         if (isFollowing)
         {
             transform.position = new Vector3(playerTransform.position.x, transform.position.y, transform.position.z);
+            deathTransform.position = new Vector3(playerTransform.position.x, deathTransform.position.y, deathTransform.position.z);
         }
         if (shallMoveToDeathPoint)
         {
