@@ -14,7 +14,8 @@ public class AdaptFogHeight : MonoBehaviour
     float deltaFogHeight;
     float maxHeight;
 
-
+    public float baseHeightValue;
+    public float maxHeightValue;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +34,9 @@ public class AdaptFogHeight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        baseHeightValue = fog.baseHeight.value;
+        maxHeightValue = fog.maximumHeight.value;
+
         if (playerTransform.position.y - fog.baseHeight.value != deltaFogHeight)
         {
             fog.baseHeight.value = playerTransform.position.y - deltaFogHeight;
