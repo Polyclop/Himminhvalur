@@ -21,6 +21,10 @@ public class getGrabbed : MonoBehaviour
 
     Material outlineMaterial;
 
+    move moveScript;
+    bool startedWaitingForGrab;
+    float startTime, currentTime;
+
     //triggerLights
     /*bool shallTriggerLights;
     public Light lit;
@@ -47,6 +51,7 @@ public class getGrabbed : MonoBehaviour
         */
         audSource = GetComponent<AudioSource>();
         outlineMaterial = GetComponent<Renderer>().materials[1];
+        moveScript = playerTransform.gameObject.GetComponent<move>();
     }
 
     // Update is called once per frame
@@ -76,16 +81,14 @@ public class getGrabbed : MonoBehaviour
                 }
                 */
             }
-            else
-            {
-                if (isGrabbed)
-                {
-                    GameEvents.current.GrabObject(transform.position);
-                    isGrabbed = false;
-                    Ungrab();
 
-                }
-            }
+        }
+        if (isGrabbed && !Input.GetButton("Fire1"))
+        {
+            GameEvents.current.GrabObject(transform.position);
+            isGrabbed = false;
+            Ungrab();
+
         }
 
         if (isGrabbed && Input.GetAxis("Horizontal") != 0)
@@ -112,7 +115,14 @@ public class getGrabbed : MonoBehaviour
                 audSource.volume -= decreaseValue * Time.deltaTime;
         }
 
-
+        if (startedWaitingForGrab)
+        {
+            currentTime = Time.time;
+            if(currentTime - startTime >= 0.3f){
+                startedWaitingForGrab = false;
+                this.transform.parent = col.transform;
+            }
+        }
 
 
 
@@ -150,11 +160,19 @@ public class getGrabbed : MonoBehaviour
 
     void Grab()
     {
-        if(Input.GetAxis("Horizontal") < 0)
+        
+        if (Input.GetAxis("Horizontal") < 0)
         {
-            playerTransform.gameObject.GetComponent<move>().Flip();
+            moveScript.flipSprite = true;
+            moveScript.Flip();
         }
-        this.transform.parent = col.transform;
+        if (!startedWaitingForGrab)
+        {
+            startedWaitingForGrab = true;
+            startTime = Time.time;
+        }
+
+        
         //shallTriggerLights = true;
         //lightHits.enabled = true;
     }

@@ -29,7 +29,7 @@ public class move : MonoBehaviour
     public float lowJumpMultiplier = 2f;
     
     // Changing Side
-    bool flipSprite;
+    public bool flipSprite;
     int rotator = 0;
     public float rotationZ;
 

@@ -11,6 +11,7 @@ TagManager:
   - WhaleSpawn1.5
   - WhaleSpawn3
   - WhaleSpawn4
+  - WhaleSpawn5
   layers:
   - Default
   - TransparentFX
