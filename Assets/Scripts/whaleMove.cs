@@ -98,7 +98,8 @@ public class whaleMove : MonoBehaviour
         }
         else
         {
-            transform.position = transformToFollow.position - eyeTransform.position + transform.position;
+                transform.position = transformToFollow.position - eyeTransform.position + transform.position;
+
         }
 
         

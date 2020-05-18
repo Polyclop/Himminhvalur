@@ -118,7 +118,7 @@ public class getGrabbed : MonoBehaviour
         if (startedWaitingForGrab)
         {
             currentTime = Time.time;
-            if(currentTime - startTime >= 0.3f){
+            if(currentTime - startTime >= 0.2f){
                 startedWaitingForGrab = false;
                 this.transform.parent = col.transform;
             }
