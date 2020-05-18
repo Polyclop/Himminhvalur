@@ -49,7 +49,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_A9FA1568:
-        m_Texture: {fileID: 2800000, guid: 90a7c498794de694fa2af95e4a8c3de9, type: 3}
+        m_Texture: {fileID: 2800000, guid: 263b74a3a96410c42b33a7225837ec4d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AnisotropyMap:

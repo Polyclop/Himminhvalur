@@ -90,7 +90,7 @@ public class caughtJauge : MonoBehaviour
 
     void HealthChange(float healthValue)
     {
-        float amount = ((1 + baseValueOffset + healthValue) * 180.0f / 360);
+        float amount = ((1 + baseValueOffset + healthValue) * 260.0f / 360);
         _aiguille.fillAmount = amount;
         float buttonAngle = amount * 360;
         barometreContainer.localEulerAngles = new Vector3(0, 0, -buttonAngle);
