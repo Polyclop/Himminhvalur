@@ -49,13 +49,15 @@ public class Doortrigger : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && isInZone && !didOpenDoor)
+        if (Input.GetButtonDown("Fire1") && isInZone && !didOpenDoor && !button.GetBool("activate"))
         {
             didOpenDoor = true;
-            button.SetBool("activate", true);
-            levierAudio.Play();
             
             GameEvents.current.BlockPlayerMove(false);
+            button.SetBool("activate", true);
+            levierAudio.Play();
+
+            
         }
 
     }

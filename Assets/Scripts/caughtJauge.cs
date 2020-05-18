@@ -7,10 +7,14 @@ public class caughtJauge : MonoBehaviour
 {
     public bool seen = false;
     [Range(0, 1)]
-    public float increaseRate = 0.2f;
+    public float baseIncreaseRate = 0.35f;
     [Range(0, 1)]
-    public float decreaseRate = 0.4f;
-
+    public float baseDecreaseRate = 0.7f;
+    [Range(0, 1)]
+    public float slowIncreaseRate = 0.3f;
+    [Range(0, 1)]
+    public float slowDecreaseRate = 0.7f;
+    float increaseRate, decreaseRate;
     Slider slider;
 
     public Image _aiguille;
@@ -27,6 +31,8 @@ public class caughtJauge : MonoBehaviour
 
     bool isDead;
 
+
+
     public void OnDeath()
     {
         deathDelegate();
@@ -38,7 +44,9 @@ public class caughtJauge : MonoBehaviour
         slider = GetComponent<Slider>();
         GameEvents.current.onBeingSeen += OnGettingCaughtSlider;
         GameEvents.current.onDying += InitBackSlider;
-        
+        GameEvents.current.onChangingRoom += AdaptJaugeSpeed;
+        increaseRate = baseIncreaseRate;
+        decreaseRate = baseDecreaseRate;
 
     }
 
@@ -94,5 +102,20 @@ public class caughtJauge : MonoBehaviour
         _aiguille.fillAmount = amount;
         float buttonAngle = amount * 360;
         barometreContainer.localEulerAngles = new Vector3(0, 0, -buttonAngle);
+    }
+
+    private void AdaptJaugeSpeed(float room)
+    {
+        switch (room)
+        {
+            case 4:
+                increaseRate = slowIncreaseRate;
+                decreaseRate = slowDecreaseRate;
+                break;
+            default:
+                increaseRate = baseIncreaseRate;
+                decreaseRate = baseDecreaseRate;
+                break;
+        }
     }
 }
