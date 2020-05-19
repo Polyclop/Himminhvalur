@@ -149,8 +149,9 @@ public class whaleMove : MonoBehaviour
                 break;
             case 5:
                 shallMove = false;
+                GetComponent<CapsuleCollider>().enabled = false;
                 transformToFollow = GameObject.FindGameObjectWithTag("WhaleSpawn5").transform;
-                transform.localRotation = Quaternion.Euler(0, -90, -20);
+                transform.localRotation = Quaternion.Euler(0, -125, 10);
                 whalouTransform.localScale *= moveRight ? 1 : -1;
                 moveRight = movedRight = true;
                 whaleMaterial.SetColor("Color_FD08B2B8", whaleBaseEmissionColor);
