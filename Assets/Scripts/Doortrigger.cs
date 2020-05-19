@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Rewired;
 
 public class Doortrigger : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class Doortrigger : MonoBehaviour
 
     Material outlineMaterial, levierBaseOutlineMaterial;
     public MeshRenderer levierBaseRenderer;
+
+    int playerID = 0;
+    Player player;
 
     // etat de l'animation
     enum animationState
@@ -31,13 +35,18 @@ public class Doortrigger : MonoBehaviour
 
         outlineMaterial = GetComponent<Renderer>().materials[1];
         levierBaseOutlineMaterial = levierBaseRenderer.materials[1];
+
+        player = ReInput.players.GetPlayer(playerID);
+
     }
+
     void OnTriggerEnter(Collider col)
     {
         isInZone = true;
         outlineMaterial.SetFloat("Boolean_5842AB85", 1);
         levierBaseOutlineMaterial.SetFloat("Boolean_5842AB85", 1);
     }
+
     void OnTriggerExit(Collider col)
 
     {
@@ -49,7 +58,7 @@ public class Doortrigger : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && isInZone && !didOpenDoor && !button.GetBool("activate"))
+        if (player.GetButtonDown("Interact") && isInZone && !didOpenDoor && !button.GetBool("activate"))
         {
             didOpenDoor = true;
             

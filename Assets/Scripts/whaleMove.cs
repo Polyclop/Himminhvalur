@@ -161,5 +161,6 @@ public class whaleMove : MonoBehaviour
         }
         whaleAnimator.SetBool("isMoving", shallMove);
         whaleAnimator.SetBool("isMovingSlow", !shallMove);
+        
     }
 }

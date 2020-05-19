@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Rewired;
 
 public class move : MonoBehaviour
 {
@@ -44,6 +45,9 @@ public class move : MonoBehaviour
 
     float animatorPrevSpeed;
 
+    int playerID = 0;
+    Player player;
+
         /// Init
     void Start()
     {
@@ -54,6 +58,8 @@ public class move : MonoBehaviour
         GameEvents.current.onGrabObject += OnPlayerGrab;
         GameEvents.current.onBlockingPlayerMove += AllowPlayerMovement;
         GameEvents.current.onDying += Respawn;
+
+        player = ReInput.players.GetPlayer(playerID);
     }
 
         /// Game Loop
@@ -90,7 +96,7 @@ public class move : MonoBehaviour
     void HandleMove()
     {
         
-        if (Input.GetButton("Jump")){
+        if (player.GetButton("Run")){
             isRunning = true;
             speed = isGrabbing ? grabSpeed : runSpeed;
         }
@@ -100,16 +106,16 @@ public class move : MonoBehaviour
             speed = isGrabbing ? grabSpeed : walkSpeed;
         }
 
-        if (canMove && (!isGrabbing || isGrabbing && Input.GetAxis("Horizontal")>= 0))
+        if (canMove && (!isGrabbing || isGrabbing && player.GetAxis("Move")>= 0))
         {
-            tsf.position = new Vector3(tsf.localPosition.x + (Input.GetAxis("Horizontal") * speed * Time.deltaTime), tsf.localPosition.y, tsf.localPosition.z);
+            tsf.position = new Vector3(tsf.localPosition.x + (player.GetAxis("Move") * speed * Time.deltaTime), tsf.localPosition.y, tsf.localPosition.z);
         }
 
-        animator.SetBool("isWalking", Input.GetAxis("Horizontal") != 0 && canMove && !isRunning);
-        animator.SetBool("isRunning", Input.GetAxis("Horizontal") != 0 && canMove && isRunning);
+        animator.SetBool("isWalking", player.GetAxis("Move") != 0 && canMove && !isRunning);
+        animator.SetBool("isRunning", player.GetAxis("Move") != 0 && canMove && isRunning);
 
 
-        animator.speed = (isGrabbing && Input.GetAxis("Horizontal") <= 0) ? 0.2f : 1;
+        animator.speed = (isGrabbing && player.GetAxis("Move") <= 0) ? 0.2f : 1;
  
 
     }
@@ -120,7 +126,7 @@ public class move : MonoBehaviour
         {
             rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
         }
-        else if(rb.velocity.y > 0 && !Input.GetButton("Jump"))
+        else if(rb.velocity.y > 0 && !player.GetButton("Run"))
         {
             rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
@@ -140,7 +146,7 @@ public class move : MonoBehaviour
     {
         if (!isGrabbing)
         {
-            if (rotator == 0 && Input.GetAxis("Horizontal") < 0 || rotator == 180 && Input.GetAxis("Horizontal") > 0) flipSprite = true;
+            if (rotator == 0 && player.GetAxis("Move") < 0 || rotator == 180 && player.GetAxis("Move") > 0) flipSprite = true;
             else flipSprite = false;
             
         }

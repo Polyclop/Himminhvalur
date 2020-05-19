@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Rewired;
 
 public class getGrabbed : MonoBehaviour
 {
@@ -26,7 +27,11 @@ public class getGrabbed : MonoBehaviour
     float startTime, currentTime;
 
     public Transform dedicatedSpawnPoint;
-    
+
+    int playerID = 0;
+    Player player;
+
+
     //triggerLights
     /*bool shallTriggerLights;
     public Light lit;
@@ -51,6 +56,8 @@ public class getGrabbed : MonoBehaviour
             }
         }
         */
+        player = ReInput.players.GetPlayer(playerID);
+
         audSource = GetComponent<AudioSource>();
         outlineMaterial = GetComponent<Renderer>().materials[1];
         moveScript = playerTransform.gameObject.GetComponent<move>();
@@ -62,7 +69,7 @@ public class getGrabbed : MonoBehaviour
     {
         if (isInside)
         {
-            if (Input.GetButton("Fire1"))
+            if (player.GetButton("Interact"))
             {
                 if (!isGrabbed && playerTransform.rotation.y > 0)
                 {
@@ -86,7 +93,7 @@ public class getGrabbed : MonoBehaviour
             }
 
         }
-        if (isGrabbed && !Input.GetButton("Fire1"))
+        if (isGrabbed && !player.GetButton("Interact"))
         {
             GameEvents.current.GrabObject(transform.position);
             isGrabbed = false;
@@ -94,7 +101,7 @@ public class getGrabbed : MonoBehaviour
 
         }
 
-        if (isGrabbed && Input.GetAxis("Horizontal") != 0)
+        if (isGrabbed && player.GetAxis("Move") != 0)
         {
             if (!didPlaySource)
             {
@@ -164,7 +171,7 @@ public class getGrabbed : MonoBehaviour
     void Grab()
     {
         
-        if (Input.GetAxis("Horizontal") < 0)
+        if (player.GetAxis("Move") < 0)
         {
             moveScript.flipSprite = true;
             moveScript.Flip();
