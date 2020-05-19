@@ -49,7 +49,7 @@ public class MainMenu : MonoBehaviour
 
             choixmenu += 1;
             
-            if ( choixmenu > 3 )
+            if ( choixmenu > 4 )
 
             {
                 choixmenu = 1;
@@ -57,7 +57,7 @@ public class MainMenu : MonoBehaviour
                      this.buttonPlay);
 
             }
-            //highlight
+            
         }
         if ((Input.GetButtonDown("Fire1")) || (Input.GetKeyDown(KeyCode.Return)))
         {
@@ -70,6 +70,9 @@ public class MainMenu : MonoBehaviour
                     Controles();
                     break;
                 case 3:
+                    Credits();
+                    break;
+                case 4:
                     QuitGame();
                     break;
 
@@ -89,7 +92,7 @@ public class MainMenu : MonoBehaviour
             if (choixmenu < 1 )
 
             {
-                choixmenu = 3;
+                choixmenu = 4;
                 EventSystem.current.SetSelectedGameObject(
                      this.buttonQuit);
 
