@@ -23,7 +23,7 @@ Material:
   m_Name: A19
   m_Shader: {fileID: -6465566751694194690, guid: 1cb3ef8e4d3bb3c46a95990ec1aa232e,
     type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA _ALPHATEST_ON
+  m_ShaderKeywords: _ALPHATEST_ON
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -131,10 +131,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - BOOLEAN_E5E423F0: 0
-    - Vector1_3F44791A: 0.3
+    - Vector1_3F44791A: 0.2
     - Vector1_6DBCCE9D: 0.1
-    - Vector1_A604658: 0.06
-    - Vector1_F14E62E8: 0
+    - Vector1_A604658: 0.03
+    - Vector1_F14E62E8: -1
     - _AORemapMax: 1
     - _AORemapMin: 0
     - _ATDistance: 1
