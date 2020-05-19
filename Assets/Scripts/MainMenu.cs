@@ -4,22 +4,88 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine;
+using Rewired;
 
 
 public class MainMenu : MonoBehaviour
 {
-    public Image controles;
     public int choixmenu;
     public GameObject buttonPlay;
     public GameObject buttonControl;
     public GameObject buttonQuit;
-    
- 
 
+    int playerID = 0;
+    Player player;
 
-    public void PlayGame()   
+    private void Start()
     {
-        
+        player = ReInput.players.GetPlayer(playerID);
+    }
+    
+
+    private void Update()
+    {
+
+        if (player.GetButtonDown("Vertical") && player.GetAxis("Vertical") < 0)
+        {
+
+            choixmenu++;
+            
+            if ( choixmenu > 4 )
+            {
+                choixmenu = 1;
+                EventSystem.current.SetSelectedGameObject(
+                     this.buttonPlay);
+
+            }
+            
+        }
+
+        if (player.GetButtonDown("Vertical") && player.GetAxis("Vertical") > 0)
+        {
+            choixmenu--;
+
+            if (choixmenu < 1 )
+            {
+                choixmenu = 4;
+                EventSystem.current.SetSelectedGameObject(
+                     this.buttonQuit);
+
+            }
+            
+        }
+
+
+
+        if ((player.GetButtonDown("Interact")) || (Input.GetKeyDown(KeyCode.Return)))
+        {
+            switch (choixmenu)
+            {
+                case 1:
+                    PlayGame();
+                    break;
+                case 2:
+                    Controles();
+                    break;
+                case 3:
+                    Credits();
+                    break;
+                case 4:
+                    QuitGame();
+                    break;
+
+                default:
+                    break;
+
+            }
+
+
+        }
+    }
+
+    public void PlayGame()
+    {
+
         SceneManager.LoadScene("IntroHistoire");
     }
 
@@ -41,64 +107,5 @@ public class MainMenu : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-
-        if (Input.GetButtonDown("Vertical") && Input.GetAxis("Vertical") < 0)
-        {
-
-            choixmenu += 1;
-            
-            if ( choixmenu > 4 )
-
-            {
-                choixmenu = 1;
-                EventSystem.current.SetSelectedGameObject(
-                     this.buttonPlay);
-
-            }
-            
-        }
-        if ((Input.GetButtonDown("Fire1")) || (Input.GetKeyDown(KeyCode.Return)))
-        {
-            switch (choixmenu)
-            {
-                case 1:
-                    PlayGame();
-                    break;
-                case 2:
-                    Controles();
-                    break;
-                case 3:
-                    Credits();
-                    break;
-                case 4:
-                    QuitGame();
-                    break;
-
-                default:
-                    break;
-
-            }
-            
-
-        }
-
-
-        if (Input.GetButtonDown("Vertical") && Input.GetAxis("Vertical") > 0)
-        {
-            choixmenu -= 1;
-
-            if (choixmenu < 1 )
-
-            {
-                choixmenu = 4;
-                EventSystem.current.SetSelectedGameObject(
-                     this.buttonQuit);
-
-            }
-            
-        }
-    }
 
 }

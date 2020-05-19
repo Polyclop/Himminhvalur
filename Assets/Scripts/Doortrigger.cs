@@ -30,6 +30,7 @@ public class Doortrigger : MonoBehaviour
 
     void Start()
     {
+        
         button = GetComponent<Animator>();
         levierAudio = GetComponent<AudioSource>();
 

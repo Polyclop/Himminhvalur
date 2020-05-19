@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+using Rewired;
 
 public class IntroFades : MonoBehaviour
 {
@@ -28,6 +28,10 @@ public class IntroFades : MonoBehaviour
 
     int i = 0;
 
+    int playerID = 0;
+    Player player;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,10 +43,15 @@ public class IntroFades : MonoBehaviour
         introImage.sprite = introSprite[i];
         introImage.color = new Color(introImage.color.r, introImage.color.g, introImage.color.b, screenAlpha);
 
+        player = ReInput.players.GetPlayer(playerID);
+
+
         // Au début on commence sur du noir et on fade out
         if (ambiantSource != null)
             ambiantSource.Play();
         StartFadeOut();
+
+
     }
 
     private void Update()
@@ -173,7 +182,7 @@ public class IntroFades : MonoBehaviour
     private void WaitForInput()
     {
         // Si on appuie sur un bouton on fadeIn
-        if (Input.anyKeyDown)
+        if (player.GetAnyButtonDown())
         {
             isWaitingForInput = false;
 

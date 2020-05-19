@@ -2,11 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Rewired;
+
 
 public class RetourMainMenu : MonoBehaviour
 {
+    int playerID = 0;
+    Player player;
 
-       
+    private void Start()
+    {
+        player = ReInput.players.GetPlayer(playerID);
+    }
 
     public void RetourMenu()
     {
@@ -17,12 +24,9 @@ public class RetourMainMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            if (Input.GetKeyDown(KeyCode.Escape))
-
-            {
-                RetourMenu();
-            }
-       
-
+        if (Input.GetKeyDown(KeyCode.Escape) || player.GetAnyButtonDown())
+        {
+            RetourMenu();
+        }
     }
 }

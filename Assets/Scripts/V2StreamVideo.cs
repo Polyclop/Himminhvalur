@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Video;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
+using Rewired;
 
 public class V2StreamVideo : MonoBehaviour
 {
@@ -12,13 +14,36 @@ public class V2StreamVideo : MonoBehaviour
     private VideoPlayer videoPlayer;
     private VideoSource videoSource;
     private AudioSource audioSource;
+
+    float startTime, currentTime;
+    bool startedTimer;
+
+    int playerID = 0;
+    Player player;
+
     // Use this for initialization
+
+
+
     void Start()
     {
         Application.runInBackground = true;
         StartCoroutine(playVideo());
         videoPlayer.loopPointReached += EndReached;
+        player = ReInput.players.GetPlayer(playerID);
+
     }
+
+    private void Update()
+    {
+
+        if (player.GetAnyButtonDown())
+        {
+            SceneManager.LoadScene("Menu");
+
+        }
+    }
+
     IEnumerator playVideo()
     {
         //Add VideoPlayer to the GameObject
@@ -68,12 +93,16 @@ public class V2StreamVideo : MonoBehaviour
             yield return null;
         }
         Debug.Log("Done Playing Video");
+        videoPlayer.Stop();
+        SceneManager.LoadScene("Menu");
     }
 
 
     void EndReached(UnityEngine.Video.VideoPlayer vp)
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+        //videoPlayer.Stop();
+        //SceneManager.LoadScene("Menu");
+
     }
 }
 
