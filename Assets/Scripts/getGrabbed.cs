@@ -25,6 +25,8 @@ public class getGrabbed : MonoBehaviour
     bool startedWaitingForGrab;
     float startTime, currentTime;
 
+    public Transform dedicatedSpawnPoint;
+    
     //triggerLights
     /*bool shallTriggerLights;
     public Light lit;
@@ -52,6 +54,7 @@ public class getGrabbed : MonoBehaviour
         audSource = GetComponent<AudioSource>();
         outlineMaterial = GetComponent<Renderer>().materials[1];
         moveScript = playerTransform.gameObject.GetComponent<move>();
+        GameEvents.current.onDying += MoveBackObject;
     }
 
     // Update is called once per frame
@@ -182,5 +185,11 @@ public class getGrabbed : MonoBehaviour
         this.transform.parent = null;
     }
 
-
+    private void MoveBackObject(float room, float initDuration)
+    {
+        if(room == 4 && dedicatedSpawnPoint != null)
+        {
+            transform.position = dedicatedSpawnPoint.position;
+        }
+    }
 }

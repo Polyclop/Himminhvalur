@@ -10,7 +10,7 @@ Material:
   m_Name: A13
   m_Shader: {fileID: -6465566751694194690, guid: 1cb3ef8e4d3bb3c46a95990ec1aa232e,
     type: 3}
-  m_ShaderKeywords: BOOLEAN_E5E423F0_ON _ALPHATEST_ON
+  m_ShaderKeywords: BOOLEAN_E5E423F0_ON ETC1_EXTERNAL_ALPHA _ALPHATEST_ON
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
