@@ -1,17 +1,12 @@
 fileFormatVersion: 2
-guid: 3690ee997c771be41bd5a42f1fb70543
+guid: 8d75c4260ee113645aa105898721b542
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable:
   - first:
       74: 4781951162920444690
-    second: move
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: No Name
-    second: {fileID: 2100000, guid: 1eeece97ebfb2ff44abf5ab54020e3d7, type: 2}
+    second: MoveSlow
+  externalObjects: {}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -40,7 +35,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: move
+      name: MoveSlow
       takeName: Armature|ArmatureAction
       internalID: 0
       firstFrame: 0
