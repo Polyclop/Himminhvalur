@@ -1,16 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
-using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityEngine;
+
 
 public class MainMenu : MonoBehaviour
 {
-
+    public Image controles;
     public int choixmenu;
+    public GameObject buttonPlay;
+    public GameObject buttonControl;
+    public GameObject buttonQuit;
+    
+ 
 
 
-   public void PlayGame()   
+    public void PlayGame()   
     {
         
         SceneManager.LoadScene("Main");
@@ -19,6 +26,19 @@ public class MainMenu : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void Controles()
+    {
+
+        SceneManager.LoadScene("Controles");
+
+    }
+
+    public void Credits()
+    {
+        SceneManager.LoadScene("Credits");
+
     }
 
     private void Update()
@@ -33,6 +53,9 @@ public class MainMenu : MonoBehaviour
 
             {
                 choixmenu = 1;
+                EventSystem.current.SetSelectedGameObject(
+                     this.buttonPlay);
+
             }
             //highlight
         }
@@ -44,10 +67,10 @@ public class MainMenu : MonoBehaviour
                     PlayGame();
                     break;
                 case 2:
-                    //controles
+                    Controles();
                     break;
                 case 3:
-                    Application.Quit();
+                    QuitGame();
                     break;
 
                 default:
@@ -67,8 +90,11 @@ public class MainMenu : MonoBehaviour
 
             {
                 choixmenu = 3;
+                EventSystem.current.SetSelectedGameObject(
+                     this.buttonQuit);
+
             }
-            //highlight
+            
         }
     }
 
