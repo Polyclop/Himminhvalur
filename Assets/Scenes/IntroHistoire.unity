@@ -271,20 +271,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   introSprite:
-  - {fileID: 21300000, guid: c844802af9ff83149a481ad3ace0c121, type: 3}
-  - {fileID: 21300000, guid: c11861e56a43e4d4eade474af0bb9346, type: 3}
-  - {fileID: 21300000, guid: f4b237248d428b0409cee41c1905bab3, type: 3}
-  - {fileID: 21300000, guid: 2da6022c6aeab724ca66dc2aefb72de0, type: 3}
-  - {fileID: 21300000, guid: d400d64342bb75744ab814f12bb02de8, type: 3}
-  - {fileID: 21300000, guid: 6daee6c9432745e46a3a1c9d912c642d, type: 3}
-  - {fileID: 21300000, guid: f603463f23e46fc4382e0d4bb80bf054, type: 3}
-  - {fileID: 21300000, guid: 58c289af5643945448c58cdf7589022e, type: 3}
-  - {fileID: 21300000, guid: 1a1d3ccce44176d4cba7b020d2780653, type: 3}
-  - {fileID: 21300000, guid: 9439b0ad46d602e4d9de0242688b9205, type: 3}
-  - {fileID: 21300000, guid: 6a31a6e4145817248a40656a19743d33, type: 3}
-  - {fileID: 21300000, guid: 7f56b7b73a7e0c944baf97568f4ed751, type: 3}
-  - {fileID: 21300000, guid: a7701a363a6dc834bb96534d18b7b10f, type: 3}
-  - {fileID: 21300000, guid: bd3314a317f7b7a4c93e8d0e13460e9f, type: 3}
+  - {fileID: 21300000, guid: 88d95d33a21c95e43a76a55ba5e9f34c, type: 3}
+  - {fileID: 21300000, guid: 81a34ae6d1d46694e82ef3f9cfa6e07e, type: 3}
+  - {fileID: 21300000, guid: 5a1d5e5582e01bd4abb2f352ffb88142, type: 3}
+  - {fileID: 21300000, guid: 4d60a2514e03c30478ede7a2cbface8b, type: 3}
+  - {fileID: 21300000, guid: 3245c3b28828bca4d91b38c24bce407f, type: 3}
+  - {fileID: 21300000, guid: c483ed71d77bfd0458e1286e97353f5a, type: 3}
+  - {fileID: 21300000, guid: e1c0bc24177a71e44b11e3415c7b8443, type: 3}
+  - {fileID: 21300000, guid: 9820aeaaf992fec42baaf67177dcc343, type: 3}
+  - {fileID: 21300000, guid: 102ea7aab80faac4db7974031571b9e4, type: 3}
+  - {fileID: 21300000, guid: da0fb0772fc53fd46bf2ca8b5fd23d63, type: 3}
+  - {fileID: 21300000, guid: 31206e9169f31fa4bb29b2378cdb364a, type: 3}
+  - {fileID: 21300000, guid: 3a3d0341879e90d4a91b45f950695ba1, type: 3}
+  - {fileID: 21300000, guid: 96e75231427b3fe49bde17e343e15b22, type: 3}
+  - {fileID: 21300000, guid: 7620d117411b7554b810677b103993dd, type: 3}
   screenAlpha: 0
   fadeInDuration: 0.66
   waitDuration: 0
