@@ -73,7 +73,7 @@ public class caughtSound : MonoBehaviour
             }
             else
             {
-                if (source.volume <= baseValue)
+                if (source.volume <= 0.1f)
                 {
                     source.volume = baseValue;
                     firstTimeSeen = false;

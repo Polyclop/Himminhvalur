@@ -10,9 +10,8 @@ using Rewired;
 public class MainMenu : MonoBehaviour
 {
     public int choixmenu;
-    public GameObject buttonPlay;
-    public GameObject buttonControl;
-    public GameObject buttonQuit;
+    public GameObject[] buttons;
+
 
     int playerID = 0;
     Player player;
@@ -26,7 +25,7 @@ public class MainMenu : MonoBehaviour
     private void Update()
     {
 
-        if (player.GetButtonDown("Vertical") && player.GetAxis("Vertical") < 0)
+        if (Input.GetButtonDown("Vertical") && Input.GetAxis("Vertical") < 0)
         {
 
             choixmenu++;
@@ -34,8 +33,7 @@ public class MainMenu : MonoBehaviour
             if ( choixmenu > 4 )
             {
                 choixmenu = 1;
-                EventSystem.current.SetSelectedGameObject(
-                     this.buttonPlay);
+                //EventSystem.current.SetSelectedGameObject(this.buttonPlay);
 
             }
             
@@ -48,14 +46,13 @@ public class MainMenu : MonoBehaviour
             if (choixmenu < 1 )
             {
                 choixmenu = 4;
-                EventSystem.current.SetSelectedGameObject(
-                     this.buttonQuit);
+                //EventSystem.current.SetSelectedGameObject(this.buttonQuit);
 
             }
             
         }
 
-
+        EventSystem.current.SetSelectedGameObject(this.buttons[choixmenu-1]);
 
         if ((player.GetButtonDown("Interact")) || (Input.GetKeyDown(KeyCode.Return)))
         {

@@ -1174,9 +1174,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   choixmenu: 0
-  buttonPlay: {fileID: 1549081766}
-  buttonControl: {fileID: 218633883}
-  buttonQuit: {fileID: 1738983730}
+  buttons:
+  - {fileID: 1549081766}
+  - {fileID: 218633883}
+  - {fileID: 288427975}
+  - {fileID: 1738983730}
 --- !u!1 &1534223251
 GameObject:
   m_ObjectHideFlags: 0
